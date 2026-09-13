@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming I</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ede8e0;
+            color: #1a1a1a;
+            min-height: 100vh;
+        }
+        .hero {
+            text-align: center;
+            padding: 10vh 5vw 6vh;
+        }
+        .hero .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #8a8178;
+            margin-bottom: 2vh;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2vh;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #5a5a5a;
+            max-width: 50vw;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 4vh 5vw 8vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e8e2d8;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.8rem 2rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+        .card .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #306998;
+            opacity: 0.6;
+            min-width: 3rem;
+        }
+        .card .info h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.15rem;
+            margin-bottom: 0.4rem;
+        }
+        .card .info p {
+            font-size: 0.85rem;
+            color: #5a5a5a;
+            line-height: 1.5;
+        }
+        .card .arrow {
+            position: absolute;
+            right: 1.5rem;
+            font-size: 1.2rem;
+            color: #b8b0a4;
+            transition: all 0.3s ease;
+        }
+        .card:hover .arrow {
+            color: #306998;
+            transform: translateX(5px);
+        }
+        .card .tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #306998;
+            margin-bottom: 0.3rem;
+        }
+        .footer {
+            text-align: center;
+            padding: 4vh 5vw 6vh;
+            color: #8a8178;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="label">Python Programming I</div>
+        <h1>Course Materials</h1>
+        <p class="subtitle">10 sessions — from zero to building real programs. Prepared for students heading abroad.</p>
+    </div>
+
+    <div class="grid">
+        <a href="slides/01-intro-programming.html" class="card">
+            <div class="num">01</div>
+            <div class="info">
+                <div class="tag">Foundation</div>
+                <h3>Introduction to Programming</h3>
+                <p>What is programming, computational thinking, Python setup, first program</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/02-variables-data-types.html" class="card">
+            <div class="num">02</div>
+            <div class="info">
+                <div class="tag">Foundation</div>
+                <h3>Variables & Data Types</h3>
+                <p>int, float, str, bool, type conversion, user input</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/03-operators-expressions.html" class="card">
+            <div class="num">03</div>
+            <div class="info">
+                <div class="tag">Foundation</div>
+                <h3>Operators & Expressions</h3>
+                <p>Arithmetic, comparison, logical operators, precedence</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/04-decision-making.html" class="card">
+            <div class="num">04</div>
+            <div class="info">
+                <div class="tag">Control Flow</div>
+                <h3>Decision Making</h3>
+                <p>if / elif / else, nested conditions, ternary operator</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/05-loops.html" class="card">
+            <div class="num">05</div>
+            <div class="info">
+                <div class="tag">Control Flow</div>
+                <h3>Loops</h3>
+                <p>for, while, range(), break / continue, nested loops</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/06-functions.html" class="card">
+            <div class="num">06</div>
+            <div class="info">
+                <div class="tag">Structure</div>
+                <h3>Functions</h3>
+                <p>def, parameters, return, scope, lambda, *args / **kwargs</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/07-lists-tuples.html" class="card">
+            <div class="num">07</div>
+            <div class="info">
+                <div class="tag">Data Structures</div>
+                <h3>Lists & Tuples</h3>
+                <p>Indexing, slicing, methods, list comprehension, tuples</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/08-dictionaries-sets.html" class="card">
+            <div class="num">08</div>
+            <div class="info">
+                <div class="tag">Data Structures</div>
+                <h3>Dictionaries & Sets</h3>
+                <p>Key-value pairs, methods, set operations, real-world use cases</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/09-string-processing.html" class="card">
+            <div class="num">09</div>
+            <div class="info">
+                <div class="tag">Processing</div>
+                <h3>String Processing</h3>
+                <p>Methods, f-strings, slicing, string libraries, validation</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+
+        <a href="slides/10-file-handling-project.html" class="card">
+            <div class="num">10</div>
+            <div class="info">
+                <div class="tag">Applied</div>
+                <h3>File Handling & Final Project</h3>
+                <p>Reading/writing files, CSV, exception handling, capstone project</p>
+            </div>
+            <div class="arrow">&#8594;</div>
+        </a>
+    </div>
+
+    <div class="footer">
+        Python Programming I &mdash; Trixync
+    </div>
+</body>
+</html>
