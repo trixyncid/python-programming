@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="09-outcome-0"><span><strong>Debugging Techniques</strong> Read the traceback and check one value</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-1"><span><strong>Logging</strong> A record of what the program did</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-2"><span><strong>Assertions</strong> A condition that must be true</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-3"><span><strong>Unit Testing</strong> A small test for one behavior</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-4"><span><strong>Maintainable Code</strong> Names, small functions, and tests that stay with the code</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Debugging and Logging</div><h3>See the Value and Keep a Record</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Debugging and Logging</div><h3>See the Value and Keep a Record</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>logging stays in the program. You can turn the detail level up when you are investigating.</p>
 
 <textarea spellcheck="false" data-key="09-code-0">import logging
@@ -109,7 +109,7 @@ print(average([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Log the value just before a line that fails. The traceback names the file and the line.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Assertions</div><h3>State a Fact the Code Relies On</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Assertions</div><h3>State a Fact the Code Relies On</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>assert stops the program when the condition is false. Use it for mistakes in the program, not for bad user input.</p>
 
 <textarea spellcheck="false" data-key="09-code-1">def average(scores):
@@ -120,7 +120,7 @@ print(average([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A failed assertion means the caller broke a rule the function requires.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Unit Tests</div><h3>Lock In One Behavior</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Unit Tests</div><h3>Lock In One Behavior</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A test method calls the function and checks the result with an assert method.</p>
 
 <textarea spellcheck="false" data-key="09-code-2">import unittest
@@ -137,7 +137,7 @@ if __name__ == &quot;__main__&quot;:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Run the file with python3 test_average.py. A failing test prints the expected value and the actual value.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Add a unit test for a function that counts how many scores are at least 75.</p>
 
 <textarea spellcheck="false" data-key="09-code-3"># Add a unit test for a function that counts how many scores are at least 75.
@@ -166,11 +166,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -296,7 +296,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

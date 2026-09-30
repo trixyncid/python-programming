@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="08-outcome-0"><span><strong>Introduction to HTTP</strong> A request, a status code, and a body</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-1"><span><strong>REST APIs</strong> Resources named by URLs</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-2"><span><strong>Making API Requests</strong> Send a GET and read the status</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-3"><span><strong>JSON Responses</strong> Turn the body into dictionaries and lists</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">HTTP and REST</div><h3>A Request for a Resource</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">HTTP and REST</div><h3>A Request for a Resource</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>GET reads. The URL names the resource. The status code reports how the call went.</p>
 
 <textarea spellcheck="false" data-key="08-code-0"># GET https://jsonplaceholder.typicode.com/users/1
@@ -108,7 +108,7 @@ elif status == 404:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">POST creates, PUT replaces, and DELETE removes. This course focuses on reading with GET.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">requests</div><h3>Send the Request from Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">requests</div><h3>Send the Request from Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>requests is a third-party package. Install it in the virtual environment from the packages module.</p>
 
 <textarea spellcheck="false" data-key="08-code-1">import requests
@@ -122,7 +122,7 @@ response.raise_for_status()</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">timeout stops the program from waiting forever. raise_for_status() surfaces an error status.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">JSON</div><h3>Turn the Body into Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">JSON</div><h3>Turn the Body into Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>response.json() parses a JSON body into dictionaries and lists.</p>
 
 <textarea spellcheck="false" data-key="08-code-2">import requests
@@ -137,7 +137,7 @@ print(user[&quot;name&quot;], user[&quot;email&quot;])</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Check the status before you trust the body. A JSON error page is still JSON, and it is still an error.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Request one public JSON URL, check the status code, and print two fields from the body.</p>
 
 <textarea spellcheck="false" data-key="08-code-3"># Request one public JSON URL, check the status code, and print two fields from the body.
@@ -166,11 +166,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -296,7 +296,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

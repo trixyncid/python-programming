@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="11-outcome-0"><span><strong>Requirements Analysis</strong> What the program must do, in writing</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-1"><span><strong>Project Planning</strong> Modules, data, and the order you will build them</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-2"><span><strong>Application Development</strong> The working program</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-3"><span><strong>Testing and Debugging</strong> Tests for the core behavior, and a fix for what fails</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-4"><span><strong>Documentation</strong> How to set up, run, and use the program</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-5"><span><strong>Project Presentation</strong> A walkthrough of one complete task</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Requirements and Plan</div><h3>Write the Promise Before the Code</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Requirements and Plan</div><h3>Write the Promise Before the Code</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Choose one application: a course roster, a lab inventory, or a study-group finder. Write the requirements as statements you can test.</p>
 
 <textarea spellcheck="false" data-key="11-code-0"># Requirements
@@ -107,7 +107,7 @@ print(&quot;Build order:&quot;, &quot;, &quot;.join(modules))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A requirement is done when a test or a demonstration shows it working.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Build and Test</div><h3>A Small Slice You Can Run</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Build and Test</div><h3>A Small Slice You Can Run</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Store the rule in a class, persist rows in SQLite, and cover the rule with a unit test.</p>
 
 <textarea spellcheck="false" data-key="11-code-1">class Student:
@@ -133,7 +133,7 @@ python3 app.py</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Commit the project with Git and push it to GitHub before the presentation.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Ship a small application with SQLite storage, unit tests, a README, and a GitHub repository.</p>
 
 <textarea spellcheck="false" data-key="11-code-3"># Ship a small application with SQLite storage, unit tests, a README, and a GitHub repository.
@@ -162,11 +162,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -292,7 +292,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="08-outcome-0"><span><strong>String Operations</strong> Combine and repeat text</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-1"><span><strong>String Methods</strong> Clean and change a string</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-2"><span><strong>String Formatting</strong> Build a readable sentence</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-3"><span><strong>Searching and Replacing</strong> Find text and swap it</span></label><label class="outcome"><input type="checkbox" data-key="08-outcome-4"><span><strong>Splitting and Joining</strong> Turn a line into parts, and parts into a line</span></label></div>
 <aside class="concept"><h3>A Sequence of Characters</h3><p>A string method does not edit the original. It returns a new string you can store or print.</p><ul><li>Quotes mark the text</li><li>Methods use dot notation</li><li>f-strings insert values into a sentence</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Operations and Methods</div><h3>Build Text and Clean It</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Operations and Methods</div><h3>Build Text and Clean It</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Addition joins strings. Methods such as strip, lower, and title reshape them.</p>
 
 <textarea spellcheck="false" data-key="08-code-0">raw = &quot;  Ana Cruz  &quot;
@@ -106,7 +106,7 @@ print(name.lower())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">strip() removes surrounding spaces. title() capitalizes each word.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Formatting</div><h3>A Sentence with Values Inside</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Formatting</div><h3>A Sentence with Values Inside</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>An f-string evaluates expressions inside braces.</p>
 
 <textarea spellcheck="false" data-key="08-code-1">name = &quot;Ana&quot;
@@ -116,7 +116,7 @@ print(f&quot;Average: {score / 1:.1f}&quot;)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The format specifier .1f prints one digit after the decimal point.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Search, Replace, Split, Join</div><h3>Find Parts and Put Them Back</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Search, Replace, Split, Join</div><h3>Find Parts and Put Them Back</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>split breaks a string on a separator. join builds one string from a list.</p>
 
 <textarea spellcheck="false" data-key="08-code-2">line = &quot;Ana,95,pass&quot;
@@ -130,7 +130,7 @@ print(&quot; | &quot;.join(parts))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">in asks whether a smaller string appears inside a larger one.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Take a comma-separated line, split it, and print a cleaned full name.</p>
 
 <textarea spellcheck="false" data-key="08-code-3"># Take a comma-separated line, split it, and print a cleaned full name.
@@ -159,11 +159,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -289,7 +289,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

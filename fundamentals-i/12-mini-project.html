@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="12-outcome-0"><span><strong>Program Design</strong> Decide the inputs, outputs, and functions first</span></label><label class="outcome"><input type="checkbox" data-key="12-outcome-1"><span><strong>Debugging</strong> Read the error and check one assumption at a time</span></label><label class="outcome"><input type="checkbox" data-key="12-outcome-2"><span><strong>Documentation</strong> Explain how to run the program and what it does</span></label><label class="outcome"><input type="checkbox" data-key="12-outcome-3"><span><strong>Project Presentation</strong> Show the program and walk through one path</span></label></div>
 <aside class="concept"><h3>A Gradebook in One Program</h3><p>Build a program that reads grades.csv, computes each average, skips a bad row, and writes a short report.</p><ul><li>One function reads the file</li><li>One function computes a result</li><li>One function writes the report</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Design</div><h3>Sketch the Pieces First</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Design</div><h3>Sketch the Pieces First</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write the function names and their jobs before filling in the bodies.</p>
 
 <textarea spellcheck="false" data-key="12-code-0">def load_rows(path):
@@ -108,7 +108,7 @@ def write_report(path, summary):
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A docstring is a string on the first line of a function. It documents what that function promises.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Debugging</div><h3>Read the Message, Then Check One Fact</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Debugging</div><h3>Read the Message, Then Check One Fact</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Print the value you think you have. Compare it with the value the error describes.</p>
 
 <textarea spellcheck="false" data-key="12-code-1">def average(scores):
@@ -123,7 +123,7 @@ except ValueError as error:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A useful debug print shows the value just before the line that fails.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Documentation and Presentation</div><h3>Tell Someone Else How to Run It</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Documentation and Presentation</div><h3>Tell Someone Else How to Run It</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A short header comment is enough for this project. The presentation walks through one real file.</p>
 
 <textarea spellcheck="false" data-key="12-code-2"># Gradebook
@@ -136,7 +136,7 @@ print(&quot;Ready to present one successful run and one bad row&quot;)</textarea
 <pre class="out" aria-live="polite"></pre>
 <p class="note">In the presentation, show the CSV, run the program, and open the report.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Finish the gradebook, run it on a CSV with one bad row, and prepare a three-minute walkthrough.</p>
 
 <textarea spellcheck="false" data-key="12-code-3"># Finish the gradebook, run it on a CSV with one bad row, and prepare a three-minute walkthrough.
@@ -165,11 +165,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -295,7 +295,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

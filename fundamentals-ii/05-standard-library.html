@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="05-outcome-0"><span><strong>pathlib</strong> Paths as objects you can join and read</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-1"><span><strong>datetime</strong> Dates, times, and formatting</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-2"><span><strong>math</strong> Square roots, rounding, and constants</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-3"><span><strong>random</strong> A choice or a number from a range</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-4"><span><strong>os</strong> Process environment and folders</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-5"><span><strong>shutil</strong> Copy and move files</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">pathlib and datetime</div><h3>Paths and Timestamps</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">pathlib and datetime</div><h3>Paths and Timestamps</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A Path joins with the / operator. datetime formats the moment you stamp a report.</p>
 
 <textarea spellcheck="false" data-key="05-code-0">from datetime import datetime
@@ -109,7 +109,7 @@ print(report.read_text())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Path.read_text and Path.write_text open and close the file for you.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">math and random</div><h3>Numbers and a Fair Choice</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">math and random</div><h3>Numbers and a Fair Choice</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>math handles calculation. random handles a selection you want to vary.</p>
 
 <textarea spellcheck="false" data-key="05-code-1">import math
@@ -122,7 +122,7 @@ print(random.choice([&quot;Ana&quot;, &quot;Ben&quot;, &quot;Cole&quot;]))</text
 <pre class="out" aria-live="polite"></pre>
 <p class="note">random.seed(1) makes a run repeatable, which helps when you are testing.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">os and shutil</div><h3>Folders, Copies, and the Environment</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">os and shutil</div><h3>Folders, Copies, and the Environment</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>os reads the working directory. shutil copies a file, including into a new folder.</p>
 
 <textarea spellcheck="false" data-key="05-code-2">import os
@@ -136,7 +136,7 @@ print(Path(&quot;notes-backup.txt&quot;).read_text())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">shutil.move renames or relocates a file. shutil.copy leaves the original in place.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write today's date into reports/summary.txt using pathlib and datetime.</p>
 
 <textarea spellcheck="false" data-key="05-code-3"># Write today&#x27;s date into reports/summary.txt using pathlib and datetime.
@@ -165,11 +165,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -295,7 +295,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

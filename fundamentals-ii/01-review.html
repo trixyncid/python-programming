@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="01-outcome-0"><span><strong>Variables, Functions, and Collections</strong> The pieces every later module assumes</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-1"><span><strong>File Handling and Exceptions</strong> Read data and respond when a row is unusable</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-2"><span><strong>Code Organization</strong> Small functions with one job each</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Core Pieces</div><h3>Variables, Functions, Collections</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Core Pieces</div><h3>Variables, Functions, Collections</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A function takes a collection, computes a result, and returns it.</p>
 
 <textarea spellcheck="false" data-key="01-code-0">def passing(records, minimum=75):
@@ -112,7 +112,7 @@ print(passing(students))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A dictionary stores one student. A list stores the whole class.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Files and Exceptions</div><h3>Read a File and Handle a Bad Value</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Files and Exceptions</div><h3>Read a File and Handle a Bad Value</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Convert text from the file. When conversion fails, report the line and continue.</p>
 
 <textarea spellcheck="false" data-key="01-code-1">def load_scores(path):
@@ -131,7 +131,7 @@ print(load_scores(&quot;scores.txt&quot;))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">except ValueError handles one known problem. The rest of the file still loads.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Best Practices</div><h3>Organize the Code</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Best Practices</div><h3>Organize the Code</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Name functions after the job they do. Keep input, calculation, and output apart.</p>
 
 <textarea spellcheck="false" data-key="01-code-2">def average(scores):
@@ -144,7 +144,7 @@ print(summarize([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A reader should be able to guess what a function does from its name.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Load three scores from a text file, skip a bad line, and print the average.</p>
 
 <textarea spellcheck="false" data-key="01-code-3"># Load three scores from a text file, skip a bad line, and print the average.
@@ -173,11 +173,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -303,7 +303,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

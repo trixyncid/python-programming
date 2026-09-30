@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="05-outcome-0"><span><strong>for Loops</strong> Visit each item in a sequence</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-1"><span><strong>while Loops</strong> Repeat while a condition stays True</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-2"><span><strong>Nested Loops</strong> A loop inside a loop</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-3"><span><strong>break</strong> Leave the loop immediately</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-4"><span><strong>continue</strong> Skip to the next repetition</span></label><label class="outcome"><input type="checkbox" data-key="05-outcome-5"><span><strong>pass</strong> A placeholder that does nothing</span></label></div>
 <aside class="concept"><h3>The Same Steps, Many Times</h3><p>Use for when you know the collection. Use while when you know the condition that should keep the loop going.</p><ul><li>range() counts for you</li><li>A while loop needs a change that can end it</li><li>break, continue, and pass steer one repetition</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">for and while</div><h3>Counting and Waiting</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">for and while</div><h3>Counting and Waiting</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>for walks a sequence. while keeps going until its condition becomes False.</p>
 
 <textarea spellcheck="false" data-key="05-code-0">for number in range(1, 4):
@@ -107,7 +107,7 @@ print(&quot;Access granted&quot;)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">In a real program the while loop would read input. This version sets the matching value so it ends.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Nested Loops</div><h3>A Loop for Every Row</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Nested Loops</div><h3>A Loop for Every Row</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>The inner loop finishes a full run before the outer loop takes its next step.</p>
 
 <textarea spellcheck="false" data-key="05-code-1">for row in range(1, 3):
@@ -116,7 +116,7 @@ print(&quot;Access granted&quot;)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Two loops are enough for tables, grids, and pairs of values.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">break, continue, pass</div><h3>Steering a Single Repetition</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">break, continue, pass</div><h3>Steering a Single Repetition</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>break leaves. continue skips the rest of the body. pass holds a place for code you will write later.</p>
 
 <textarea spellcheck="false" data-key="05-code-2">for number in range(1, 6):
@@ -130,17 +130,19 @@ print(&quot;Access granted&quot;)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">This prints 1, 3, and 4. 2 is skipped, 3 is printed after pass, and 5 ends the loop.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
-<p>Print the numbers 1 through 10 and skip every even number.</p>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
+<p>Print the odd numbers from 1 through 10. Put each number on its own line, and skip every even number.</p>
 
-<textarea spellcheck="false" data-key="05-code-3"># Print the numbers 1 through 10 and skip every even number.
-
-def solve():
-    pass
-
-solve()</textarea>
+<textarea spellcheck="false" data-key="05-code-3"># Print the odd numbers from 1 through 10, one per line.
+# Output:
+# 1
+# 3
+# 5
+# 7
+# 9
+</textarea>
 <pre class="out" aria-live="polite"></pre>
-<p class="note">Replace pass with your solution, then run the file.</p>
+<p class="note">The output is five lines: 1, 3, 5, 7, and 9.</p>
 </article>
 <div class="quiz"><h3>Check yourself</h3><div class="question" data-key="05-quiz-0" data-answer="0">
 <p>break</p>
@@ -159,11 +161,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -289,7 +291,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

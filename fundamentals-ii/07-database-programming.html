@@ -107,7 +107,7 @@ SELECT name, score FROM students WHERE score &gt;= 75;</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">SQL names the result. It does not walk the rows one by one the way a for loop does.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Connect</div><h3>Open SQLite from Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Connect</div><h3>Open SQLite from Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A connection is the link to the file. A cursor sends statements.</p>
 
 <textarea spellcheck="false" data-key="07-code-1">import sqlite3
@@ -123,7 +123,7 @@ connection.close()</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">commit() saves the change. close() releases the file.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">CRUD</div><h3>Insert, Read, Update, Delete</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">CRUD</div><h3>Insert, Read, Update, Delete</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Question marks are placeholders. Pass the values in a tuple so they are not pasted into the SQL text.</p>
 
 <textarea spellcheck="false" data-key="07-code-2">import sqlite3
@@ -150,7 +150,7 @@ connection.close()</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Placeholders keep data separate from the statement. That is the safe way to pass values.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Create a courses table, insert two rows, and print the rows with a score of at least 75.</p>
 
 <textarea spellcheck="false" data-key="07-code-3"># Create a courses table, insert two rows, and print the rows with a score of at least 75.
@@ -179,11 +179,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -309,7 +309,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

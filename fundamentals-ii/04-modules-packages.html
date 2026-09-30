@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="04-outcome-0"><span><strong>Creating Modules</strong> A Python file other code can import</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-1"><span><strong>Creating Packages</strong> A folder of modules with __init__.py</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-2"><span><strong>Importing Packages</strong> Reach a function through the package name</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-3"><span><strong>Virtual Environments</strong> A private set of installed packages</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-4"><span><strong>pip</strong> Install and list third-party packages</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Packages</div><h3>A Folder You Can Import</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Packages</div><h3>A Folder You Can Import</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>gradebook/stats.py holds the function. main.py imports it through the package.</p>
 
 <textarea spellcheck="false" data-key="04-code-0"># gradebook/__init__.py
@@ -110,7 +110,7 @@ print(average([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">__init__.py marks the folder as a package. It can be empty.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Imports</div><h3>Choose How Much to Import</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Imports</div><h3>Choose How Much to Import</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Import the package, a module, or a single function. The last form is the most direct call.</p>
 
 <textarea spellcheck="false" data-key="04-code-1"># After the package exists, any of these loads average:
@@ -129,7 +129,7 @@ python3 -m pip show requests</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Activate the environment in each new terminal session before you run the project.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Create a gradebook package with one stats module and import average from it.</p>
 
 <textarea spellcheck="false" data-key="04-code-3"># Create a gradebook package with one stats module and import average from it.
@@ -158,11 +158,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -288,7 +288,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

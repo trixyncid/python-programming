@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="02-outcome-0"><span><strong>Variables and Constants</strong> Names that hold a value</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-1"><span><strong>Numeric Data Types</strong> Whole numbers and decimals</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-2"><span><strong>Strings</strong> Text inside quotes</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-3"><span><strong>Boolean Values</strong> True and False</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-4"><span><strong>Type Conversion</strong> Turn one type into another</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-5"><span><strong>User Input and Output</strong> Ask a question and print an answer</span></label></div>
 <aside class="concept"><h3>Names for Values</h3><p>A variable is a name you choose. A constant is a name you treat as fixed, written in uppercase.</p><ul><li>student_name changes as the program runs</li><li>MAX_SCORE stays the top mark</li><li>The type tells Python what operations are allowed</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Types</div><h3>Numbers, Text, and Booleans</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Types</div><h3>Numbers, Text, and Booleans</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>int is a whole number, float is a decimal, str is text, and bool is True or False.</p>
 
 <textarea spellcheck="false" data-key="02-code-0">MAX_SCORE = 100
@@ -110,7 +110,7 @@ print(type(passed))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">type() reports the kind of value a name currently holds.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Conversion</div><h3>Changing One Type into Another</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Conversion</div><h3>Changing One Type into Another</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>input() always returns text. Convert it before you do arithmetic.</p>
 
 <textarea spellcheck="false" data-key="02-code-1">name = input(&quot;Name: &quot;)
@@ -122,17 +122,17 @@ print(&quot;As a decimal:&quot;, float(score))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">int(), float(), and str() are the conversions you will use most often.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
-<p>Ask for a name and a score, store both, and print a one-line summary.</p>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
+<p>Ask for a name and a score, then print one line: the name, the word scored, and the score.</p>
 
-<textarea spellcheck="false" data-key="02-code-2"># Ask for a name and a score, store both, and print a one-line summary.
-
-def solve():
-    pass
-
-solve()</textarea>
+<textarea spellcheck="false" data-key="02-code-2"># Ask for a name and a score, then print one line.
+# Output for Ana and 95:
+# Ana scored 95
+name = input(&quot;Name: &quot;)
+score = input(&quot;Score: &quot;)
+</textarea>
 <pre class="out" aria-live="polite"></pre>
-<p class="note">Replace pass with your solution, then run the file.</p>
+<p class="note">For the name Ana and the score 95, the output is Ana scored 95. The page will ask for both values when you run it.</p>
 </article>
 <div class="quiz"><h3>Check yourself</h3><div class="question" data-key="02-quiz-0" data-answer="0">
 <p>input() gives you</p>
@@ -151,11 +151,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -281,7 +281,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

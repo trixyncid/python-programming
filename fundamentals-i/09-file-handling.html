@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="09-outcome-0"><span><strong>Reading Text Files</strong> Open a file and take its contents</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-1"><span><strong>Writing Text Files</strong> Create or replace a text file</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-2"><span><strong>CSV Files</strong> Rows and columns in a plain-text table</span></label><label class="outcome"><input type="checkbox" data-key="09-outcome-3"><span><strong>File Paths</strong> The location of a file on disk</span></label></div>
 <aside class="concept"><h3>Data That Outlives the Program</h3><p>with opens a file and closes it when the block ends, including when something goes wrong inside the block.</p><ul><li>"r" reads and "w" writes</li><li>A path is a string that locates the file</li><li>CSV is text with a separator between columns</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Read and Write</div><h3>Text In, Text Out</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Read and Write</div><h3>Text In, Text Out</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>write() sends text to the file. read() brings the whole file back as one string.</p>
 
 <textarea spellcheck="false" data-key="09-code-0">with open(&quot;notes.txt&quot;, &quot;w&quot;) as handle:
@@ -106,7 +106,7 @@ print(contents)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">"w" replaces the file if it already exists. The newline character starts the next line.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">CSV</div><h3>A Table in a Text File</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">CSV</div><h3>A Table in a Text File</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>The csv module reads each row as a dictionary when the first line holds column names.</p>
 
 <textarea spellcheck="false" data-key="09-code-1">import csv
@@ -122,7 +122,7 @@ with open(&quot;grades.csv&quot;, newline=&quot;&quot;) as handle:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">newline="" lets the csv module handle line endings for you.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Paths</div><h3>Where the File Lives</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Paths</div><h3>Where the File Lives</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>os.path.join builds a path with the separator your operating system expects.</p>
 
 <textarea spellcheck="false" data-key="09-code-2">import os
@@ -137,7 +137,7 @@ print(os.path.abspath(path))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">An absolute path starts from the root of the disk. A relative path starts from the folder you ran the program in.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write two names and scores to a CSV file, then read the file and print each row.</p>
 
 <textarea spellcheck="false" data-key="09-code-3"># Write two names and scores to a CSV file, then read the file and print each row.
@@ -166,11 +166,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -296,7 +296,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

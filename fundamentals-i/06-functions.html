@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="06-outcome-0"><span><strong>Defining Functions</strong> def gives a block of code a name</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-1"><span><strong>Parameters and Arguments</strong> Values the function receives</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-2"><span><strong>Return Values</strong> The result the function sends back</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-3"><span><strong>Variable Scope</strong> Where a name is visible</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-4"><span><strong>Built-in Functions</strong> Tools Python already provides</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-5"><span><strong>Reusable Code</strong> One function, many call sites</span></label></div>
 <aside class="concept"><h3>Name a Piece of Work</h3><p>def creates the function. A later line that uses the name, with parentheses, runs it.</p><ul><li>Parameters are the names inside the function</li><li>Arguments are the values you pass in</li><li>return sends a result back to the caller</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Defining and Returning</div><h3>Parameters In, a Value Out</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Defining and Returning</div><h3>Parameters In, a Value Out</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Without return, a function hands back None.</p>
 
 <textarea spellcheck="false" data-key="06-code-0">def average(scores):
@@ -106,7 +106,7 @@ print(result)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">sum() and len() are built-in functions. average() is one you defined.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Scope</div><h3>Names Live Where They Are Created</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Scope</div><h3>Names Live Where They Are Created</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A name created inside a function stays inside that function.</p>
 
 <textarea spellcheck="false" data-key="06-code-1">school = &quot;Trixync&quot;
@@ -119,7 +119,7 @@ print(greet(&quot;Ana&quot;))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">school is visible inside greet. message exists only while greet is running.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Reusable Code</div><h3>Call the Same Function Twice</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Reusable Code</div><h3>Call the Same Function Twice</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write the rule once. Pass different arguments each time you need it.</p>
 
 <textarea spellcheck="false" data-key="06-code-2">def letter_grade(score):
@@ -135,7 +135,7 @@ print(letter_grade(70))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Built-ins you already rely on include print(), input(), int(), len(), and sum().</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write a function that takes a list of scores and returns how many are at least 75.</p>
 
 <textarea spellcheck="false" data-key="06-code-3"># Write a function that takes a list of scores and returns how many are at least 75.
@@ -164,11 +164,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -294,7 +294,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

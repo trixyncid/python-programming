@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="01-outcome-0"><span><strong>Introduction to Programming</strong> Instructions a computer can follow</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-1"><span><strong>Computational Thinking</strong> Break a problem into steps you can trust</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-2"><span><strong>Installation and Environment</strong> Install Python and choose an editor</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-3"><span><strong>Your First Program</strong> Run a script and read its output</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-4"><span><strong>Syntax and Comments</strong> How Python expects code to be written</span></label></div>
 <aside class="concept"><h3>Talking to Computers</h3><p>A program is a list of instructions. The computer follows that list exactly, from top to bottom, every time you run it.</p><ul><li>You decide the steps</li><li>Python carries them out</li><li>Clear steps are easier to check</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Computational Thinking</div><h3>Four Problem-Solving Moves</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Computational Thinking</div><h3>Four Problem-Solving Moves</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Name the pieces of the problem before you write code.</p>
 
 <textarea spellcheck="false" data-key="01-code-0"># Goal: a student&#x27;s average score
@@ -110,7 +110,7 @@ print(average)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Computational thinking is the skill. Python is the tool you use to express it.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Setup</div><h3>Install Python and Write a File</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Setup</div><h3>Install Python and Write a File</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Confirm the interpreter, then save a program in an editor such as VS Code or IDLE.</p>
 
 <textarea spellcheck="false" data-key="01-code-1"># In a terminal, check that Python is available:
@@ -122,7 +122,7 @@ print(&quot;Hello, world!&quot;)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Run it with python3 hello.py. The editor is where you write. The terminal is where you run.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Syntax</div><h3>Rules Python Always Follows</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Syntax</div><h3>Rules Python Always Follows</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Indentation groups lines. Quotes mark text. Comments start with a hash.</p>
 
 <textarea spellcheck="false" data-key="01-code-2"># This line is a comment
@@ -134,17 +134,17 @@ if message:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Four spaces of indentation show which lines belong together.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
-<p>Write a three-line program that prints your name, with one comment above it.</p>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
+<p>Write a program that prints your name. Put one comment on the line above print.</p>
 
-<textarea spellcheck="false" data-key="01-code-3"># Write a three-line program that prints your name, with one comment above it.
-
-def solve():
-    pass
-
-solve()</textarea>
+<textarea spellcheck="false" data-key="01-code-3"># Write a program that prints your name.
+# Put one comment on the line above print.
+#
+# Output is one line, for example:
+# Ana Cruz
+</textarea>
 <pre class="out" aria-live="polite"></pre>
-<p class="note">Replace pass with your solution, then run the file.</p>
+<p class="note">The output is one line with your name, for example Ana Cruz.</p>
 </article>
 <div class="quiz"><h3>Check yourself</h3><div class="question" data-key="01-quiz-0" data-answer="0">
 <p>A program is best described as</p>
@@ -163,11 +163,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -293,7 +293,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

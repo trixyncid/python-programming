@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="03-outcome-0"><span><strong>Arithmetic Operators</strong> Add, subtract, multiply, divide</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-1"><span><strong>Comparison Operators</strong> Ask whether two values match</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-2"><span><strong>Logical Operators</strong> Combine several conditions</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-3"><span><strong>Assignment Operators</strong> Store and update a value</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-4"><span><strong>Precedence</strong> Which operator Python evaluates first</span></label></div>
 <aside class="concept"><h3>Values Joined by Operators</h3><p>An expression produces a value. 2 + 3 produces 5. score &gt;= 75 produces True or False.</p><ul><li>Arithmetic produces a number</li><li>Comparison produces a boolean</li><li>Parentheses force the order you want</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Arithmetic and Assignment</div><h3>Calculate and Update</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Arithmetic and Assignment</div><h3>Calculate and Update</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Assignment operators store a result back into the same name.</p>
 
 <textarea spellcheck="false" data-key="03-code-0">price = 80
@@ -111,7 +111,7 @@ print(7 % 2)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">// is whole-number division. % is the remainder. += adds and stores in one step.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Comparison and Logic</div><h3>Questions That Answer True or False</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Comparison and Logic</div><h3>Questions That Answer True or False</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>and, or, and not combine comparisons into one condition.</p>
 
 <textarea spellcheck="false" data-key="03-code-1">score = 82
@@ -124,7 +124,7 @@ print(not score &lt; 75)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A comparison is an expression. You can print it, store it, or use it in a decision.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Precedence</div><h3>Which Operation Happens First</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Precedence</div><h3>Which Operation Happens First</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Multiplication happens before addition. Parentheses override that order.</p>
 
 <textarea spellcheck="false" data-key="03-code-2">print(2 + 3 * 4)
@@ -137,17 +137,19 @@ print(passed)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">When an expression is hard to read, add parentheses even if Python would do the same thing.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
-<p>Compute a total with tax, then print whether that total is at least 100.</p>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
+<p>price is 80 and rate is 0.12. Print the price with tax, then print True if that total is at least 100. Otherwise print False.</p>
 
-<textarea spellcheck="false" data-key="03-code-3"># Compute a total with tax, then print whether that total is at least 100.
-
-def solve():
-    pass
-
-solve()</textarea>
+<textarea spellcheck="false" data-key="03-code-3"># price is 80 and rate is 0.12.
+# Print the taxed price, then True or False.
+# Output:
+# 89.6
+# False
+price = 80
+rate = 0.12
+</textarea>
 <pre class="out" aria-live="polite"></pre>
-<p class="note">Replace pass with your solution, then run the file.</p>
+<p class="note">The output is two lines. 80 plus 12% tax is 89.6, which is below 100, so the second line is False.</p>
 </article>
 <div class="quiz"><h3>Check yourself</h3><div class="question" data-key="03-quiz-0" data-answer="0">
 <p>The value of 2 + 3 * 4 is</p>
@@ -166,11 +168,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -296,7 +298,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

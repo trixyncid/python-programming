@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="02-outcome-0"><span><strong>Classes and Objects</strong> A blueprint and the values built from it</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-1"><span><strong>Attributes and Methods</strong> Data on the object and functions that use it</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-2"><span><strong>Constructors</strong> __init__ runs when the object is created</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-3"><span><strong>Encapsulation</strong> Keep internal data behind a method</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-4"><span><strong>Inheritance</strong> A new class that starts from an existing one</span></label><label class="outcome"><input type="checkbox" data-key="02-outcome-5"><span><strong>Polymorphism</strong> The same method name, different behavior</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Classes</div><h3>Attributes, Methods, and the Constructor</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Classes</div><h3>Attributes, Methods, and the Constructor</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>__init__ receives the new object as self and stores the starting attributes.</p>
 
 <textarea spellcheck="false" data-key="02-code-0">class Student:
@@ -110,7 +110,7 @@ print(ana.name, ana.passed())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Student is the class. ana is an object. passed is a method.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Encapsulation</div><h3>Change the Score Through a Method</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Encapsulation</div><h3>Change the Score Through a Method</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A leading underscore marks data that other code should reach through methods.</p>
 
 <textarea spellcheck="false" data-key="02-code-1">class Student:
@@ -132,7 +132,7 @@ print(ana.get_score())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The rule lives in one method, so every update follows it.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Inheritance</div><h3>A Child Class Reuses the Parent</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Inheritance</div><h3>A Child Class Reuses the Parent</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>GradStudent starts with everything Student has, then replaces passed.</p>
 
 <textarea spellcheck="false" data-key="02-code-2">class Student:
@@ -152,7 +152,7 @@ print(GradStudent(&quot;Ben&quot;, 78).passed())</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">super() is available when the child also needs the parent constructor. Here the parent constructor is reused as-is.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Polymorphism</div><h3>One Loop, Two Kinds of Student</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Polymorphism</div><h3>One Loop, Two Kinds of Student</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>The loop calls passed(). Each object runs the version that belongs to its class.</p>
 
 <textarea spellcheck="false" data-key="02-code-3">class Student:
@@ -173,7 +173,7 @@ for person in people:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The variable person can hold either class. The method that runs depends on the object.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Create a Course class with a title and a roster, and a method that returns who passed.</p>
 
 <textarea spellcheck="false" data-key="02-code-4"># Create a Course class with a title and a roster, and a method that returns who passed.
@@ -202,11 +202,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -332,7 +332,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

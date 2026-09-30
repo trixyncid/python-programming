@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="11-outcome-0"><span><strong>Importing Modules</strong> Bring a name in from another file</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-1"><span><strong>Custom Modules</strong> A file you write and then import</span></label><label class="outcome"><input type="checkbox" data-key="11-outcome-2"><span><strong>The Standard Library</strong> Modules that come with Python</span></label></div>
 <aside class="concept"><h3>One Job, One File</h3><p>When a file grows, move a group of functions into another file and import them. Each file becomes easier to read.</p><ul><li>import module loads the whole module</li><li>from module import name loads one name</li><li>The standard library is already installed</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Custom Modules</div><h3>Your Own File, Imported</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Custom Modules</div><h3>Your Own File, Imported</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>helpers.py and main.py sit in the same folder. main.py imports helpers.</p>
 
 <textarea spellcheck="false" data-key="11-code-0"># helpers.py
@@ -108,7 +108,7 @@ print(helpers.average([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The file name, without .py, becomes the module name.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Standard Library</div><h3>Tools That Arrive with Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Standard Library</div><h3>Tools That Arrive with Python</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>math, random, and statistics are ready to import. You do not install them.</p>
 
 <textarea spellcheck="false" data-key="11-code-1">import math
@@ -121,7 +121,7 @@ print(statistics.mean([80, 90, 100]))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Prefer a standard-library module when it already solves the problem.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Move a grade function into helpers.py and call it from main.py.</p>
 
 <textarea spellcheck="false" data-key="11-code-2"># Move a grade function into helpers.py and call it from main.py.
@@ -150,11 +150,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -280,7 +280,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

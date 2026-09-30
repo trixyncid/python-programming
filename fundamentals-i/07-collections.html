@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="07-outcome-0"><span><strong>Lists</strong> An ordered group you can change</span></label><label class="outcome"><input type="checkbox" data-key="07-outcome-1"><span><strong>Tuples</strong> An ordered group you keep fixed</span></label><label class="outcome"><input type="checkbox" data-key="07-outcome-2"><span><strong>Dictionaries</strong> Values looked up by a key</span></label><label class="outcome"><input type="checkbox" data-key="07-outcome-3"><span><strong>Sets</strong> A group of unique values</span></label><label class="outcome"><input type="checkbox" data-key="07-outcome-4"><span><strong>Iterating</strong> Visit every item with a for loop</span></label></div>
 <aside class="concept"><h3>Many Values, One Name</h3><p>Lists and tuples keep order. Dictionaries answer a lookup. Sets remember whether a value is present.</p><ul><li>A list can grow and shrink</li><li>A tuple stays in the order you wrote</li><li>Keys in a dictionary are unique</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Lists and Tuples</div><h3>Order You Can Change, Order You Keep</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Lists and Tuples</div><h3>Order You Can Change, Order You Keep</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Index 0 is the first item. A tuple uses parentheses and does not support item assignment.</p>
 
 <textarea spellcheck="false" data-key="07-code-0">scores = [80, 90, 100]
@@ -107,7 +107,7 @@ print(point[0], point[1])</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Use a list while the group is still changing. Use a tuple for a fixed pair or record.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Dictionaries and Sets</div><h3>Look Up by Key, Keep Values Unique</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Dictionaries and Sets</div><h3>Look Up by Key, Keep Values Unique</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>A dictionary maps a key to a value. A set stores each value once.</p>
 
 <textarea spellcheck="false" data-key="07-code-1">student = {&quot;name&quot;: &quot;Ana&quot;, &quot;score&quot;: 95}
@@ -120,7 +120,7 @@ print(&quot;Ana&quot; in submitted)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A repeated name in a set is stored once. Membership tests use in.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Iteration</div><h3>Visit Every Item</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Iteration</div><h3>Visit Every Item</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>for works on every collection. Dictionaries can yield keys, values, or both.</p>
 
 <textarea spellcheck="false" data-key="07-code-2">scores = [80, 90, 100]
@@ -133,7 +133,7 @@ for key, value in student.items():
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Loop the collection itself when you need each item once.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Build a dictionary of three names and scores, then print each pair on its own line.</p>
 
 <textarea spellcheck="false" data-key="07-code-3"># Build a dictionary of three names and scores, then print each pair on its own line.
@@ -162,11 +162,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -292,7 +292,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

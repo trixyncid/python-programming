@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="04-outcome-0"><span><strong>Boolean Expressions</strong> The condition that is True or False</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-1"><span><strong>if Statements</strong> Run a block only when the condition holds</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-2"><span><strong>if-else</strong> Choose one of two paths</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-3"><span><strong>if-elif-else</strong> Check several cases in order</span></label><label class="outcome"><input type="checkbox" data-key="04-outcome-4"><span><strong>Nested Conditions</strong> A decision inside another decision</span></label></div>
 <aside class="concept"><h3>One Condition, Different Paths</h3><p>Python tests a boolean expression. The indented block under if runs when that expression is True.</p><ul><li>The condition is checked top to bottom</li><li>The first True branch wins</li><li>else covers every remaining case</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">if and if-else</div><h3>Two Clear Paths</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">if and if-else</div><h3>Two Clear Paths</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Use else when every other case should share one response.</p>
 
 <textarea spellcheck="false" data-key="04-code-0">score = 82
@@ -106,7 +106,7 @@ else:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The boolean expression score &gt;= 75 is the whole condition.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">if-elif-else</div><h3>Several Cases, Checked in Order</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">if-elif-else</div><h3>Several Cases, Checked in Order</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>elif adds another condition. Python stops at the first one that is True.</p>
 
 <textarea spellcheck="false" data-key="04-code-1">score = 91
@@ -120,7 +120,7 @@ else:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Put the most specific case first. A score of 91 matches Excellent and is not tested again.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Nested Conditions</div><h3>A Decision Inside a Decision</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Nested Conditions</div><h3>A Decision Inside a Decision</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Nest a condition when the second question only matters after the first is True.</p>
 
 <textarea spellcheck="false" data-key="04-code-2">score = 80
@@ -136,17 +136,17 @@ else:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Deep nesting is harder to read. Two levels is a useful limit while you are learning.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
-<p>Write a program that prints a letter grade from a numeric score.</p>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
+<p>score is 91. Print one letter: A for 90 and above, B for 75 to 89, and C below 75.</p>
 
-<textarea spellcheck="false" data-key="04-code-3"># Write a program that prints a letter grade from a numeric score.
-
-def solve():
-    pass
-
-solve()</textarea>
+<textarea spellcheck="false" data-key="04-code-3"># score is 91.
+# Print A, B, or C.
+# Output:
+# A
+score = 91
+</textarea>
 <pre class="out" aria-live="polite"></pre>
-<p class="note">Replace pass with your solution, then run the file.</p>
+<p class="note">For score 91 the output is A. A score of 75 prints B. A score of 74 prints C.</p>
 </article>
 <div class="quiz"><h3>Check yourself</h3><div class="question" data-key="04-quiz-0" data-answer="0">
 <p>elif runs when</p>
@@ -165,11 +165,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -295,7 +295,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

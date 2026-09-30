@@ -15,9 +15,11 @@
     .lab-card.solved { border-color: var(--accent); }
     .lab-card h3 { margin-bottom: .35rem; }
     .lab-card p { color: var(--muted); line-height: 1.5; }
+    .sample-label { margin: .8rem 0 .3rem; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .sample { margin: 0 0 .8rem; background: var(--code); border-radius: 12px; padding: .7rem .8rem; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .82rem; line-height: 1.55; white-space: pre-wrap; }
     .lab-actions { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; margin: .7rem 0; }
     .lab-actions button, .upload { font: inherit; cursor: pointer; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); padding: .4rem .8rem; }
-    .lab-actions .grade { background: var(--accent); color: #fcfdff; border-color: var(--accent); }
+    .lab-actions .grade, .lab-actions .copy { background: var(--accent); color: #fcfdff; border-color: var(--accent); }
     .upload input { display: none; }
     .lab-card textarea { width: 100%; min-height: 9rem; resize: vertical; border: 0; border-radius: 12px; background: var(--code); color: #0c0e14; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .86rem; line-height: 1.55; padding: .9rem; }
     .scoreline { font-weight: 600; color: var(--text) !important; }
@@ -52,17 +54,23 @@
   }
 
   const totalTests = exercises.reduce((sum, exercise) => sum + exercise.tests.length, 0);
+  const scriptCourse = storeKey === "fundamentals-i" && Number(moduleId) < 6;
+  const labIntro = scriptCourse
+    ? "Write each program in a <code>.py</code> file, upload it, and check your score. The names in the prompt are already set. Print exactly the sample output. Spaces and line breaks count. Do not use <code>input()</code> or <code>def</code>."
+    : "Write each function in a <code>.py</code> file, upload it, and check your score. The tests call your function. They do not read <code>input()</code>.";
   mount.innerHTML = `
     <h2>Programming exercises</h2>
-    <p class="lab-intro">Write each function in a <code>.py</code> file, upload it, and check your score. The tests call your function. They do not read <code>input()</code>.</p>
+    <p class="lab-intro">${labIntro}</p>
     <p class="module-score" id="moduleScore">Score 0 / ${totalTests}</p>
     ${exercises.map((exercise, index) => {
       const id = moduleId + "-" + (index + 1);
       return `<article class="lab-card" data-lab="${esc(id)}">
         <h3>${index + 1}. ${esc(exercise.title)}</h3>
         <p>${esc(exercise.prompt)}</p>
+        ${exercise.output ? `<p class="sample-label">Output</p><pre class="sample">${esc(exercise.output)}</pre>` : ""}
         <div class="lab-actions">
           <label class="upload">Upload .py<input type="file" accept=".py,.txt,text/plain"></label>
+          <button type="button" class="copy">Copy</button>
           <button type="button" class="grade">Check score</button>
           <button type="button" class="starter">Download starter</button>
           <button type="button" class="reset-lab">Reset</button>
@@ -141,6 +149,23 @@
       area.value = exercise.starter;
     });
 
+    card.querySelector(".copy").addEventListener("click", async () => {
+      const button = card.querySelector(".copy");
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      button.textContent = "Copied";
+      setTimeout(() => { button.textContent = "Copy"; }, 1200);
+    });
+
     card.querySelector(".grade").addEventListener("click", async () => {
       const button = card.querySelector(".grade");
       button.disabled = true;
@@ -172,7 +197,7 @@
 })();
 
 const GRADER_PYTHON = `
-import json, os, shutil, tempfile, traceback
+import json, os, shutil, tempfile, traceback, io, contextlib
 tests = json.loads(tests_json)
 folder = tempfile.mkdtemp(prefix="lab-")
 old = os.getcwd()
@@ -182,13 +207,16 @@ try:
     for test in tests:
         ns = {"__name__": "student"}
         def _blocked_input(*args, **kwargs):
-            raise AssertionError("Do not call input(). Return a value from your function.")
+            raise AssertionError("Do not call input(). Use the values already provided.")
         ns["input"] = _blocked_input
         try:
-            exec(student_src, ns)
-            setup = test.get("setup") or ""
-            if setup:
-                exec(setup, ns)
+            _buffer = io.StringIO()
+            with contextlib.redirect_stdout(_buffer):
+                setup = test.get("setup") or ""
+                if setup:
+                    exec(setup, ns)
+                exec(student_src, ns)
+            ns["_printed"] = _buffer.getvalue()
             exec(test["code"], ns)
             report.append({"name": test["name"], "ok": True, "detail": ""})
         except Exception as error:

@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="03-outcome-0"><span><strong>Lambda Functions</strong> A one-expression function without a def name</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-1"><span><strong>Recursive Functions</strong> A function that calls itself toward a base case</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-2"><span><strong>Function Annotations</strong> Labels for parameters and the return value</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-3"><span><strong>Higher-Order Functions</strong> Functions that accept or return other functions</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Lambda</div><h3>A Function Written in One Expression</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Lambda</div><h3>A Function Written in One Expression</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>lambda is useful when a short rule is needed in one place.</p>
 
 <textarea spellcheck="false" data-key="03-code-0">scores = [80, 90, 100]
@@ -105,7 +105,7 @@ print(passed)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Use def when the function needs a name, several statements, or a docstring.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Recursion</div><h3>A Function That Calls Itself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Recursion</div><h3>A Function That Calls Itself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>The base case returns immediately. Every other call moves closer to that case.</p>
 
 <textarea spellcheck="false" data-key="03-code-1">def factorial(n):
@@ -117,7 +117,7 @@ print(factorial(5))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Always write the base case first. It is what stops the calls.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Annotations</div><h3>Label the Inputs and the Result</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Annotations</div><h3>Label the Inputs and the Result</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Annotations document the expected types. Python does not enforce them by itself.</p>
 
 <textarea spellcheck="false" data-key="03-code-2">def average(scores: list[float]) -&gt; float:
@@ -128,7 +128,7 @@ print(average.__annotations__)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">Readers and tools can see that scores should be a list of numbers and that the result is a float.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">Higher-Order Functions</div><h3>Pass a Function as an Argument</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Higher-Order Functions</div><h3>Pass a Function as an Argument</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>apply_rule receives another function and calls it on each score.</p>
 
 <textarea spellcheck="false" data-key="03-code-3">def apply_rule(scores, rule):
@@ -144,7 +144,7 @@ print(apply_rule([80, 90], add_bonus))</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">map and filter are higher-order functions that come with Python. apply_rule is one you can write yourself.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write a recursive function that sums a list, with an empty list as the base case.</p>
 
 <textarea spellcheck="false" data-key="03-code-4"># Write a recursive function that sums a list, with an empty list as the base case.
@@ -173,11 +173,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -303,7 +303,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

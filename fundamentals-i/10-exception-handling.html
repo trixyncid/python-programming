@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="10-outcome-0"><span><strong>Runtime Errors</strong> Problems that appear while the program runs</span></label><label class="outcome"><input type="checkbox" data-key="10-outcome-1"><span><strong>try</strong> The block that might fail</span></label><label class="outcome"><input type="checkbox" data-key="10-outcome-2"><span><strong>except</strong> The block that runs when a matching error occurs</span></label><label class="outcome"><input type="checkbox" data-key="10-outcome-3"><span><strong>else</strong> The block that runs when try succeeds</span></label><label class="outcome"><input type="checkbox" data-key="10-outcome-4"><span><strong>finally</strong> The block that runs either way</span></label><label class="outcome"><input type="checkbox" data-key="10-outcome-5"><span><strong>Raising Exceptions</strong> Signal a problem with raise</span></label></div>
 <aside class="concept"><h3>A Failure You Can Respond To</h3><p>An exception is Python's way of saying a step could not finish. Handling it means your program chooses the next step.</p><ul><li>ZeroDivisionError and ValueError are common</li><li>Name the error you are ready to handle</li><li>finally runs after success and after failure</li></ul></aside>
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">try, except, else, finally</div><h3>Four Parts of One Attempt</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">try, except, else, finally</div><h3>Four Parts of One Attempt</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>else runs only when the try block finishes. finally runs in both cases.</p>
 
 <textarea spellcheck="false" data-key="10-code-0">def divide(a, b):
@@ -112,7 +112,7 @@ divide(10, 0)</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">A bare except would hide unexpected errors. Name the error you know how to handle.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">raise</div><h3>Report a Problem Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">raise</div><h3>Report a Problem Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>raise stops the function and sends an exception to the caller.</p>
 
 <textarea spellcheck="false" data-key="10-code-1">def set_score(score):
@@ -127,7 +127,7 @@ except ValueError as error:
 <pre class="out" aria-live="polite"></pre>
 <p class="note">The caller can catch ValueError the same way it catches an error Python raised.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Ask for a score, reject values outside 0 to 100, and catch a non-numeric entry.</p>
 
 <textarea spellcheck="false" data-key="10-code-2"># Ask for a score, reject values outside 0 to 100, and catch a non-numeric entry.
@@ -156,11 +156,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals I</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -286,7 +286,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

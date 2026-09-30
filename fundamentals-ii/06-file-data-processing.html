@@ -94,7 +94,7 @@ body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:cen
 <div class="outcomes"><label class="outcome"><input type="checkbox" data-key="06-outcome-0"><span><strong>JSON Files</strong> Dictionaries and lists saved as text</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-1"><span><strong>XML Files</strong> Elements nested inside a document</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-2"><span><strong>CSV Processing</strong> Rows, columns, and headers</span></label><label class="outcome"><input type="checkbox" data-key="06-outcome-3"><span><strong>File System Operations</strong> Create folders, list files, and remove them</span></label></div>
 
 <article class="example" data-python="true">
-<div class="block-head"><div><div class="label">JSON</div><h3>Dump a Dictionary and Load It Back</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">JSON</div><h3>Dump a Dictionary and Load It Back</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>json.dumps writes text. json.loads reads that text into Python objects.</p>
 
 <textarea spellcheck="false" data-key="06-code-0">import json
@@ -108,7 +108,7 @@ print(loaded[&quot;students&quot;][0][&quot;name&quot;])</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">indent=2 makes the file readable when you open it in an editor.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">XML</div><h3>Find Elements in a Document</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">XML</div><h3>Find Elements in a Document</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>ElementTree reads tags. find() returns the child with that tag name.</p>
 
 <textarea spellcheck="false" data-key="06-code-1">import xml.etree.ElementTree as ET
@@ -122,7 +122,7 @@ for student in root.findall(&quot;student&quot;):
 <pre class="out" aria-live="polite"></pre>
 <p class="note">XML stores the same record as nested tags instead of braces and brackets.</p>
 </article><article class="example" data-python="true">
-<div class="block-head"><div><div class="label">CSV and the File System</div><h3>Rows on Disk, Folders Around Them</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">CSV and the File System</div><h3>Rows on Disk, Folders Around Them</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Write the CSV into a folder, list what is there, then remove the practice file.</p>
 
 <textarea spellcheck="false" data-key="06-code-2">import csv
@@ -141,7 +141,7 @@ path.unlink()</textarea>
 <pre class="out" aria-live="polite"></pre>
 <p class="note">iterdir() lists a folder. unlink() deletes one file.</p>
 </article><article class="exercise" data-python="true">
-<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button><button type="button" class="copy">Copy</button></div></div>
 <p>Save a list of two students as JSON and print each name after loading the file.</p>
 
 <textarea spellcheck="false" data-key="06-code-3"># Save a list of two students as JSON and print each name after loading the file.
@@ -170,11 +170,11 @@ solve()</textarea>
 </div>
 <footer class="site-footer">
 <p>Python Fundamentals II</p>
-<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
-<p class="partners-label">Created together by</p>
+<div class="partners partners-compact" aria-label="Developed by Trixync for Yanks &amp; Brits">
+<p class="partners-label">Developed by</p>
 <div class="partner-row">
 <img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
-<span class="partner-and">and</span>
+<span class="partner-and">for</span>
 <img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
 </div>
 </div>
@@ -300,7 +300,17 @@ document.querySelectorAll("article").forEach((article) => {
   }
   if (copy) {
     copy.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(area.value);
+      const text = area.value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
       copy.textContent = "Copied";
       setTimeout(() => { copy.textContent = "Copy"; }, 1200);
     });

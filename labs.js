@@ -1,468 +1,494 @@
 window.LABS = {
   "fundamentals-i": {
-    "01": [
+    "01":     [
       {
         "title": "Greet by name",
-        "prompt": "Define greet(name). Return Hello, followed by a space and the name.",
-        "starter": "def greet(name):\n    pass\n",
+        "prompt": "name is already set. Print one line: Hello, a comma, a space, and the name.",
+        "starter": "# name is already set. Do not assign it yourself.\n# Print one line: Hello, a comma, a space, and the name.\n#\n# Given:  name = \"Ana\"\n# Output:\n# Hello, Ana\n",
+        "output": "Hello, Ana",
         "tests": [
           {
             "name": "Ana",
-            "setup": "",
-            "code": "assert greet(\"Ana\") == \"Hello, Ana\", \"expected Hello, Ana\""
+            "setup": "name = \"Ana\"",
+            "code": "assert _printed.strip() == \"Hello, Ana\", \"expected Hello, Ana\""
           },
           {
             "name": "Ben",
-            "setup": "",
-            "code": "assert greet(\"Ben\") == \"Hello, Ben\", \"expected Hello, Ben\""
+            "setup": "name = \"Ben\"",
+            "code": "assert _printed.strip() == \"Hello, Ben\", \"expected Hello, Ben\""
           },
           {
-            "name": "empty name",
-            "setup": "",
-            "code": "assert greet(\"\") == \"Hello, \", \"expected Hello, \""
+            "name": "Li",
+            "setup": "name = \"Li\"",
+            "code": "assert _printed.strip() == \"Hello, Li\", \"expected Hello, Li\""
           }
         ]
       },
       {
         "title": "Average of three scores",
-        "prompt": "Define average_of_three(a, b, c). Return the mean of the three numbers.",
-        "starter": "def average_of_three(a, b, c):\n    pass\n",
+        "prompt": "a, b, and c are already set. Print their average on one line. Division prints a decimal, so 90 becomes 90.0.",
+        "starter": "# a, b, and c are already set. Do not assign them yourself.\n# Print their average on one line.\n#\n# Given:  a, b, c = 80, 90, 100\n# Output:\n# 90.0\n",
+        "output": "90.0",
         "tests": [
           {
             "name": "even split",
-            "setup": "",
-            "code": "assert abs(average_of_three(80, 90, 100) - 90) < 1e-6, 'expected 90'"
+            "setup": "a, b, c = 80, 90, 100",
+            "code": "assert abs(float(_printed.strip()) - 90) < 1e-6, \"expected 90\""
           },
           {
             "name": "zeros",
-            "setup": "",
-            "code": "assert average_of_three(0, 0, 0) == 0, 'expected 0'"
+            "setup": "a, b, c = 0, 0, 0",
+            "code": "assert float(_printed.strip()) == 0, \"expected 0\""
           },
           {
             "name": "mixed",
-            "setup": "",
-            "code": "assert abs(average_of_three(1, 2, 3) - 2) < 1e-6, 'expected 2'"
+            "setup": "a, b, c = 1, 2, 3",
+            "code": "assert abs(float(_printed.strip()) - 2) < 1e-6, \"expected 2\""
           }
         ]
       },
       {
-        "title": "Spot a comment",
-        "prompt": "Define is_comment(line). Return True when the line, ignoring surrounding spaces, starts with #.",
-        "starter": "def is_comment(line):\n    pass\n",
+        "title": "Write a comment line",
+        "prompt": "text is already set. Print one line: a hash, a space, then the text.",
+        "starter": "# text is already set. Do not assign it yourself.\n# Print a hash, a space, and the text.\n#\n# Given:  text = \"Remember\"\n# Output:\n# # Remember\n",
+        "output": "# Remember",
         "tests": [
           {
-            "name": "hash",
-            "setup": "",
-            "code": "assert is_comment(\"# note\") is True"
+            "name": "remember",
+            "setup": "text = \"Remember\"",
+            "code": "assert _printed.strip() == \"# Remember\", \"expected # Remember\""
           },
           {
-            "name": "indented hash",
-            "setup": "",
-            "code": "assert is_comment(\"  # note\") is True"
+            "name": "two words",
+            "setup": "text = \"Check the steps\"",
+            "code": "assert _printed.strip() == \"# Check the steps\""
           },
           {
-            "name": "code",
-            "setup": "",
-            "code": "assert is_comment(\"print(1)\") is False"
-          },
-          {
-            "name": "blank",
-            "setup": "",
-            "code": "assert is_comment(\"  \") is False"
+            "name": "short",
+            "setup": "text = \"Hi\"",
+            "code": "assert _printed.strip() == \"# Hi\""
           }
         ]
       },
       {
-        "title": "Count real lines",
-        "prompt": "Define code_lines(lines). Count lines that are not blank and not comments.",
-        "starter": "def code_lines(lines):\n    pass\n",
+        "title": "Print three lines",
+        "prompt": "line1, line2, and line3 are already set. Print each value on its own line, in that order. A blank value still takes a line.",
+        "starter": "# line1, line2, and line3 are already set. Do not assign them yourself.\n# Print each value on its own line.\n#\n# Given:  line1, line2, line3 = \"Plan\", \"Write\", \"Run\"\n# Output:\n# Plan\n# Write\n# Run\n",
+        "output": "Plan\nWrite\nRun",
         "tests": [
           {
-            "name": "mixed",
-            "setup": "",
-            "code": "assert code_lines([\"# a\", \"print(1)\", \"\", \"x = 1\"]) == 2"
+            "name": "steps",
+            "setup": "line1, line2, line3 = \"Plan\", \"Write\", \"Run\"",
+            "code": "assert _printed.splitlines() == [\"Plan\", \"Write\", \"Run\"]"
           },
           {
-            "name": "only comments",
-            "setup": "",
-            "code": "assert code_lines([\"# a\", \"  \"]) == 0"
+            "name": "numbers as text",
+            "setup": "line1, line2, line3 = \"1\", \"2\", \"3\"",
+            "code": "assert _printed.splitlines() == [\"1\", \"2\", \"3\"]"
           },
           {
-            "name": "three lines",
-            "setup": "",
-            "code": "assert code_lines([\"a\", \"b\", \"c\"]) == 3"
+            "name": "blank middle",
+            "setup": "line1, line2, line3 = \"Start\", \"\", \"End\"",
+            "code": "assert _printed.splitlines() == [\"Start\", \"\", \"End\"]"
           }
         ]
       }
     ],
-    "02": [
+    "02":     [
       {
         "title": "Describe a student",
-        "prompt": "Define describe(name, score). Return the text name scored score, for example Ana scored 95.",
-        "starter": "def describe(name, score):\n    pass\n",
+        "prompt": "name and score are already set. Print one line: the name, a space, the word scored, a space, and the score.",
+        "starter": "# name and score are already set. Do not assign them yourself.\n# Print: name, the word scored, and the score.\n#\n# Given:  name, score = \"Ana\", 95\n# Output:\n# Ana scored 95\n",
+        "output": "Ana scored 95",
         "tests": [
           {
             "name": "Ana",
-            "setup": "",
-            "code": "assert describe(\"Ana\", 95) == \"Ana scored 95\""
+            "setup": "name, score = \"Ana\", 95",
+            "code": "assert _printed.strip() == \"Ana scored 95\""
           },
           {
             "name": "zero",
-            "setup": "",
-            "code": "assert describe(\"Ben\", 0) == \"Ben scored 0\""
+            "setup": "name, score = \"Ben\", 0",
+            "code": "assert _printed.strip() == \"Ben scored 0\""
           }
         ]
       },
       {
         "title": "Convert text to int",
-        "prompt": "Define as_int(text). Return the integer value of the text.",
-        "starter": "def as_int(text):\n    pass\n",
+        "prompt": "text is already set. It is text, even when it looks like a number. Convert it to an integer and print that integer on one line.",
+        "starter": "# text is already set. Do not assign it yourself.\n# Convert text to an integer and print it.\n#\n# Given:  text = \"95\"\n# Output:\n# 95\n#\n# Given:  text = \" 4 \"\n# Output:\n# 4\n",
+        "output": "95",
         "tests": [
           {
             "name": "95",
-            "setup": "",
-            "code": "assert as_int(\"95\") == 95"
+            "setup": "text = \"95\"",
+            "code": "assert int(_printed.strip()) == 95"
           },
           {
             "name": "zero",
-            "setup": "",
-            "code": "assert as_int(\"0\") == 0"
+            "setup": "text = \"0\"",
+            "code": "assert int(_printed.strip()) == 0"
           },
           {
             "name": "spaces",
-            "setup": "",
-            "code": "assert as_int(\" 4 \") == 4"
+            "setup": "text = \" 4 \"",
+            "code": "assert int(_printed.strip()) == 4"
           }
         ]
       },
       {
         "title": "Convert text to float",
-        "prompt": "Define as_float(text). Return the decimal value of the text.",
-        "starter": "def as_float(text):\n    pass\n",
+        "prompt": "text is already set. Convert it to a decimal and print that decimal. A whole number such as 3 prints as 3.0.",
+        "starter": "# text is already set. Do not assign it yourself.\n# Convert text to a decimal and print it.\n#\n# Given:  text = \"88.5\"\n# Output:\n# 88.5\n#\n# Given:  text = \"3\"\n# Output:\n# 3.0\n",
+        "output": "88.5",
         "tests": [
           {
             "name": "88.5",
-            "setup": "",
-            "code": "assert abs(as_float('88.5') - 88.5) < 1e-6"
+            "setup": "text = \"88.5\"",
+            "code": "assert abs(float(_printed.strip()) - 88.5) < 1e-6"
           },
           {
             "name": "whole number",
-            "setup": "",
-            "code": "assert as_float('3') == 3.0"
+            "setup": "text = \"3\"",
+            "code": "assert float(_printed.strip()) == 3.0"
           }
         ]
       },
       {
         "title": "Passing score",
-        "prompt": "Define is_passing(score). Return True when score is at least 75.",
-        "starter": "def is_passing(score):\n    pass\n",
+        "prompt": "score is already set. Print True when score is at least 75. Otherwise print False. Print the word, not a sentence.",
+        "starter": "# score is already set. Do not assign it yourself.\n# Print True or False.\n#\n# Given:  score = 80\n# Output:\n# True\n#\n# Given:  score = 74\n# Output:\n# False\n",
+        "output": "True",
         "tests": [
           {
             "name": "75",
-            "setup": "",
-            "code": "assert is_passing(75) is True"
+            "setup": "score = 75",
+            "code": "assert _printed.strip() == \"True\""
           },
           {
             "name": "74",
-            "setup": "",
-            "code": "assert is_passing(74) is False"
+            "setup": "score = 74",
+            "code": "assert _printed.strip() == \"False\""
           },
           {
             "name": "100",
-            "setup": "",
-            "code": "assert is_passing(100) is True"
+            "setup": "score = 100",
+            "code": "assert _printed.strip() == \"True\""
           }
         ]
       },
       {
-        "title": "Report the type name",
-        "prompt": "Define type_name(value). Return the type name, such as int, float, str, or bool.",
-        "starter": "def type_name(value):\n    pass\n",
+        "title": "Report the type",
+        "prompt": "value is already set. Print type(value) on one line. Python prints the type inside angle brackets.",
+        "starter": "# value is already set. Do not assign it yourself.\n# Print type(value).\n#\n# Given:  value = 3\n# Output:\n# <class 'int'>\n",
+        "output": "<class 'int'>",
         "tests": [
           {
             "name": "int",
-            "setup": "",
-            "code": "assert type_name(3) == \"int\""
+            "setup": "value = 3",
+            "code": "assert _printed.strip() == \"<class 'int'>\""
           },
           {
             "name": "float",
-            "setup": "",
-            "code": "assert type_name(1.5) == \"float\""
+            "setup": "value = 1.5",
+            "code": "assert _printed.strip() == \"<class 'float'>\""
           },
           {
             "name": "str",
-            "setup": "",
-            "code": "assert type_name(\"Ana\") == \"str\""
+            "setup": "value = \"Ana\"",
+            "code": "assert _printed.strip() == \"<class 'str'>\""
           },
           {
             "name": "bool",
-            "setup": "",
-            "code": "assert type_name(True) == \"bool\""
+            "setup": "value = True",
+            "code": "assert _printed.strip() == \"<class 'bool'>\""
           }
         ]
       }
     ],
-    "03": [
+    "03":     [
       {
         "title": "Price with tax",
-        "prompt": "Define with_tax(price, rate). Return price plus price times rate.",
-        "starter": "def with_tax(price, rate):\n    pass\n",
+        "prompt": "price and rate are already set. Print price plus price times rate, on one line. The result is a decimal.",
+        "starter": "# price and rate are already set. Do not assign them yourself.\n# Print price plus price times rate.\n#\n# Given:  price, rate = 100, 0.12\n# Output:\n# 112.0\n",
+        "output": "112.0",
         "tests": [
           {
             "name": "twelve percent",
-            "setup": "",
-            "code": "assert abs(with_tax(100, 0.12) - 112) < 1e-6"
+            "setup": "price, rate = 100, 0.12",
+            "code": "assert abs(float(_printed.strip()) - 112) < 1e-6, \"expected 112\""
           },
           {
             "name": "no tax",
-            "setup": "",
-            "code": "assert with_tax(80, 0) == 80"
+            "setup": "price, rate = 80, 0",
+            "code": "assert float(_printed.strip()) == 80, \"expected 80\""
           },
           {
             "name": "half",
-            "setup": "",
-            "code": "assert abs(with_tax(10, 0.5) - 15) < 1e-6"
+            "setup": "price, rate = 10, 0.5",
+            "code": "assert abs(float(_printed.strip()) - 15) < 1e-6, \"expected 15\""
           }
         ]
       },
       {
         "title": "Both conditions",
-        "prompt": "Define both_pass(score, attendance). Return True only when score is at least 75 and attendance is at least 0.8.",
-        "starter": "def both_pass(score, attendance):\n    pass\n",
+        "prompt": "score and attendance are already set. Print True only when score is at least 75 and attendance is at least 0.8. Otherwise print False.",
+        "starter": "# score and attendance are already set. Do not assign them yourself.\n# Print True only when both conditions hold.\n#\n# Given:  score, attendance = 80, 0.9\n# Output:\n# True\n#\n# Given:  score, attendance = 70, 0.9\n# Output:\n# False\n",
+        "output": "True",
         "tests": [
           {
             "name": "both",
-            "setup": "",
-            "code": "assert both_pass(80, 0.9) is True"
+            "setup": "score, attendance = 80, 0.9",
+            "code": "assert _printed.strip() == \"True\""
           },
           {
             "name": "low score",
-            "setup": "",
-            "code": "assert both_pass(70, 0.9) is False"
+            "setup": "score, attendance = 70, 0.9",
+            "code": "assert _printed.strip() == \"False\""
           },
           {
             "name": "low attendance",
-            "setup": "",
-            "code": "assert both_pass(90, 0.5) is False"
+            "setup": "score, attendance = 90, 0.5",
+            "code": "assert _printed.strip() == \"False\""
           }
         ]
       },
       {
         "title": "Whole division and remainder",
-        "prompt": "Define whole_and_remainder(n, d). Return a tuple of n // d and n % d.",
-        "starter": "def whole_and_remainder(n, d):\n    pass\n",
+        "prompt": "n and d are already set. Print the whole-number division and the remainder on one line, separated by one space.",
+        "starter": "# n and d are already set. Do not assign them yourself.\n# Print the whole-number division, a space, and the remainder.\n#\n# Given:  n, d = 7, 2\n# Output:\n# 3 1\n",
+        "output": "3 1",
         "tests": [
           {
             "name": "7 and 2",
-            "setup": "",
-            "code": "assert whole_and_remainder(7, 2) == (3, 1)"
+            "setup": "n, d = 7, 2",
+            "code": "assert _printed.strip() == \"3 1\""
           },
           {
             "name": "exact",
-            "setup": "",
-            "code": "assert whole_and_remainder(8, 4) == (2, 0)"
+            "setup": "n, d = 8, 4",
+            "code": "assert _printed.strip() == \"2 0\""
           },
           {
             "name": "one",
-            "setup": "",
-            "code": "assert whole_and_remainder(5, 1) == (5, 0)"
+            "setup": "n, d = 5, 1",
+            "code": "assert _printed.strip() == \"5 0\""
           }
         ]
       },
       {
         "title": "Inside a range",
-        "prompt": "Define in_range(n, low, high). Return True when low <= n <= high.",
-        "starter": "def in_range(n, low, high):\n    pass\n",
+        "prompt": "n, low, and high are already set. Print True when n is from low through high, including both ends. Otherwise print False.",
+        "starter": "# n, low, and high are already set. Do not assign them yourself.\n# Print True when n is inside the range, including the ends.\n#\n# Given:  n, low, high = 5, 1, 10\n# Output:\n# True\n#\n# Given:  n, low, high = 0, 1, 10\n# Output:\n# False\n",
+        "output": "True",
         "tests": [
           {
             "name": "middle",
-            "setup": "",
-            "code": "assert in_range(5, 1, 10) is True"
+            "setup": "n, low, high = 5, 1, 10",
+            "code": "assert _printed.strip() == \"True\""
           },
           {
-            "name": "edges",
-            "setup": "",
-            "code": "assert in_range(1, 1, 10) is True and in_range(10, 1, 10) is True"
+            "name": "low edge",
+            "setup": "n, low, high = 1, 1, 10",
+            "code": "assert _printed.strip() == \"True\""
+          },
+          {
+            "name": "high edge",
+            "setup": "n, low, high = 10, 1, 10",
+            "code": "assert _printed.strip() == \"True\""
           },
           {
             "name": "outside",
-            "setup": "",
-            "code": "assert in_range(0, 1, 10) is False"
+            "setup": "n, low, high = 0, 1, 10",
+            "code": "assert _printed.strip() == \"False\""
           }
         ]
       }
     ],
-    "04": [
+    "04":     [
       {
         "title": "Letter grade",
-        "prompt": "Define letter_grade(score). Return A for 90 and above, B for 75 to 89, and C below 75.",
-        "starter": "def letter_grade(score):\n    pass\n",
+        "prompt": "score is already set. Print one letter: A for 90 and above, B for 75 to 89, and C below 75.",
+        "starter": "# score is already set. Do not assign it yourself.\n# Print A, B, or C.\n#\n# Given:  score = 90\n# Output:\n# A\n#\n# Given:  score = 75\n# Output:\n# B\n#\n# Given:  score = 74\n# Output:\n# C\n",
+        "output": "A",
         "tests": [
           {
             "name": "A",
-            "setup": "",
-            "code": "assert letter_grade(95) == \"A\" and letter_grade(90) == \"A\""
+            "setup": "score = 90",
+            "code": "assert _printed.strip() == \"A\""
           },
           {
             "name": "B",
-            "setup": "",
-            "code": "assert letter_grade(89) == \"B\" and letter_grade(75) == \"B\""
+            "setup": "score = 75",
+            "code": "assert _printed.strip() == \"B\""
           },
           {
             "name": "C",
-            "setup": "",
-            "code": "assert letter_grade(74) == \"C\""
+            "setup": "score = 74",
+            "code": "assert _printed.strip() == \"C\""
           }
         ]
       },
       {
         "title": "Pass or another attempt",
-        "prompt": "Define pass_label(score). Return Pass when score is at least 75. Otherwise return Needs another attempt.",
-        "starter": "def pass_label(score):\n    pass\n",
+        "prompt": "score is already set. Print Pass when score is at least 75. Otherwise print Needs another attempt.",
+        "starter": "# score is already set. Do not assign it yourself.\n# Print Pass, or Needs another attempt.\n#\n# Given:  score = 75\n# Output:\n# Pass\n#\n# Given:  score = 74\n# Output:\n# Needs another attempt\n",
+        "output": "Pass",
         "tests": [
           {
             "name": "pass",
-            "setup": "",
-            "code": "assert pass_label(75) == \"Pass\""
+            "setup": "score = 75",
+            "code": "assert _printed.strip() == \"Pass\""
           },
           {
             "name": "retake",
-            "setup": "",
-            "code": "assert pass_label(74) == \"Needs another attempt\""
+            "setup": "score = 74",
+            "code": "assert _printed.strip() == \"Needs another attempt\""
           }
         ]
       },
       {
         "title": "Submission status",
-        "prompt": "Define submission_status(submitted, score). If submitted is false, return Waiting. If the score is at least 75, return Recorded: pass. Otherwise return Recorded: retake.",
-        "starter": "def submission_status(submitted, score):\n    pass\n",
+        "prompt": "submitted and score are already set. If submitted is False, print Waiting. If the score is at least 75, print Recorded: pass. Otherwise print Recorded: retake.",
+        "starter": "# submitted and score are already set. Do not assign them yourself.\n# Print Waiting, Recorded: pass, or Recorded: retake.\n#\n# Given:  submitted, score = False, 100\n# Output:\n# Waiting\n#\n# Given:  submitted, score = True, 80\n# Output:\n# Recorded: pass\n#\n# Given:  submitted, score = True, 50\n# Output:\n# Recorded: retake\n",
+        "output": "Waiting",
         "tests": [
           {
             "name": "waiting",
-            "setup": "",
-            "code": "assert submission_status(False, 100) == \"Waiting\""
+            "setup": "submitted, score = False, 100",
+            "code": "assert _printed.strip() == \"Waiting\""
           },
           {
             "name": "pass",
-            "setup": "",
-            "code": "assert submission_status(True, 80) == \"Recorded: pass\""
+            "setup": "submitted, score = True, 80",
+            "code": "assert _printed.strip() == \"Recorded: pass\""
           },
           {
             "name": "retake",
-            "setup": "",
-            "code": "assert submission_status(True, 50) == \"Recorded: retake\""
+            "setup": "submitted, score = True, 50",
+            "code": "assert _printed.strip() == \"Recorded: retake\""
           }
         ]
       },
       {
         "title": "Age band",
-        "prompt": "Define age_band(age). Return child under 13, adult from 13 through 64, and senior from 65.",
-        "starter": "def age_band(age):\n    pass\n",
+        "prompt": "age is already set. Print child when age is under 13, adult from 13 through 64, and senior from 65.",
+        "starter": "# age is already set. Do not assign it yourself.\n# Print child, adult, or senior.\n#\n# Given:  age = 12\n# Output:\n# child\n#\n# Given:  age = 30\n# Output:\n# adult\n#\n# Given:  age = 65\n# Output:\n# senior\n",
+        "output": "child",
         "tests": [
           {
             "name": "child",
-            "setup": "",
-            "code": "assert age_band(12) == \"child\""
+            "setup": "age = 12",
+            "code": "assert _printed.strip() == \"child\""
           },
           {
             "name": "adult",
-            "setup": "",
-            "code": "assert age_band(13) == \"adult\" and age_band(64) == \"adult\""
+            "setup": "age = 13",
+            "code": "assert _printed.strip() == \"adult\""
+          },
+          {
+            "name": "older adult",
+            "setup": "age = 64",
+            "code": "assert _printed.strip() == \"adult\""
           },
           {
             "name": "senior",
-            "setup": "",
-            "code": "assert age_band(65) == \"senior\""
+            "setup": "age = 65",
+            "code": "assert _printed.strip() == \"senior\""
           }
         ]
       }
     ],
-    "05": [
+    "05":     [
       {
-        "title": "Total of a list",
-        "prompt": "Define total(numbers). Add the numbers with a loop and return the sum.",
-        "starter": "def total(numbers):\n    pass\n",
+        "title": "Total from 1 to limit",
+        "prompt": "limit is already set. Use a for loop to add the numbers from 1 through limit, then print the sum on one line. When limit is 0, print 0.",
+        "starter": "# limit is already set. Do not assign it yourself.\n# Add 1 through limit and print the sum.\n#\n# Given:  limit = 3\n# Output:\n# 6\n#\n# Given:  limit = 0\n# Output:\n# 0\n",
+        "output": "6",
         "tests": [
           {
             "name": "three",
-            "setup": "",
-            "code": "assert total([80, 90, 100]) == 270"
+            "setup": "limit = 3",
+            "code": "assert int(_printed.strip()) == 6"
           },
           {
-            "name": "empty",
-            "setup": "",
-            "code": "assert total([]) == 0"
+            "name": "one",
+            "setup": "limit = 1",
+            "code": "assert int(_printed.strip()) == 1"
           },
           {
-            "name": "negatives",
-            "setup": "",
-            "code": "assert total([5, -2, 2]) == 5"
+            "name": "zero",
+            "setup": "limit = 0",
+            "code": "assert int(_printed.strip()) == 0"
           }
         ]
       },
       {
-        "title": "Count passing scores",
-        "prompt": "Define count_passing(scores, minimum). Return how many scores are at least minimum.",
-        "starter": "def count_passing(scores, minimum):\n    pass\n",
+        "title": "Count values in range",
+        "prompt": "limit and minimum are already set. Count how many numbers from 1 through limit are at least minimum, then print that count on one line.",
+        "starter": "# limit and minimum are already set. Do not assign them yourself.\n# Print how many numbers from 1 through limit are at least minimum.\n#\n# Given:  limit, minimum = 10, 8\n# The numbers are 8, 9, and 10.\n# Output:\n# 3\n",
+        "output": "3",
         "tests": [
           {
-            "name": "two",
-            "setup": "",
-            "code": "assert count_passing([70, 75, 90], 75) == 2"
+            "name": "three",
+            "setup": "limit, minimum = 10, 8",
+            "code": "assert int(_printed.strip()) == 3"
           },
           {
             "name": "none",
-            "setup": "",
-            "code": "assert count_passing([10, 20], 75) == 0"
+            "setup": "limit, minimum = 5, 10",
+            "code": "assert int(_printed.strip()) == 0"
           },
           {
-            "name": "all",
-            "setup": "",
-            "code": "assert count_passing([80, 80], 80) == 2"
+            "name": "one",
+            "setup": "limit, minimum = 4, 4",
+            "code": "assert int(_printed.strip()) == 1"
           }
         ]
       },
       {
-        "title": "First match",
-        "prompt": "Define first_match(items, target). Return the first item equal to target, or None if it never appears.",
-        "starter": "def first_match(items, target):\n    pass\n",
+        "title": "Stop before a number",
+        "prompt": "stop is already set. Print the numbers from 1 up to, but not including, stop. Put each number on its own line. When stop is 1, print nothing.",
+        "starter": "# stop is already set. Do not assign it yourself.\n# Print 1, 2, 3, and so on, and stop before stop.\n#\n# Given:  stop = 4\n# Output:\n# 1\n# 2\n# 3\n",
+        "output": "1\n2\n3",
         "tests": [
           {
-            "name": "found",
-            "setup": "",
-            "code": "assert first_match([\"Ana\", \"Ben\"], \"Ben\") == \"Ben\""
+            "name": "before 4",
+            "setup": "stop = 4",
+            "code": "assert _printed.splitlines() == [\"1\", \"2\", \"3\"]"
           },
           {
-            "name": "missing",
-            "setup": "",
-            "code": "assert first_match([\"Ana\"], \"Ben\") is None"
+            "name": "nothing",
+            "setup": "stop = 1",
+            "code": "assert _printed.splitlines() == []"
           },
           {
-            "name": "first of two",
-            "setup": "",
-            "code": "assert first_match([1, 2, 2], 2) == 2"
+            "name": "before 3",
+            "setup": "stop = 3",
+            "code": "assert _printed.splitlines() == [\"1\", \"2\"]"
           }
         ]
       },
       {
-        "title": "Keep positives",
-        "prompt": "Define positives(numbers). Return the numbers that are greater than 0, in the same order.",
-        "starter": "def positives(numbers):\n    pass\n",
+        "title": "Skip even numbers",
+        "prompt": "limit is already set. Print the odd numbers from 1 through limit. Put each number on its own line, and skip every even number.",
+        "starter": "# limit is already set. Do not assign it yourself.\n# Print the odd numbers from 1 through limit, one per line.\n#\n# Given:  limit = 5\n# Output:\n# 1\n# 3\n# 5\n",
+        "output": "1\n3\n5",
         "tests": [
           {
-            "name": "mixed",
-            "setup": "",
-            "code": "assert positives([3, -1, 0, 4]) == [3, 4]"
+            "name": "through 5",
+            "setup": "limit = 5",
+            "code": "assert _printed.splitlines() == [\"1\", \"3\", \"5\"]"
           },
           {
-            "name": "none",
-            "setup": "",
-            "code": "assert positives([-2, 0]) == []"
+            "name": "one",
+            "setup": "limit = 1",
+            "code": "assert _printed.splitlines() == [\"1\"]"
           },
           {
-            "name": "all",
-            "setup": "",
-            "code": "assert positives([1, 2]) == [1, 2]"
+            "name": "through 2",
+            "setup": "limit = 2",
+            "code": "assert _printed.splitlines() == [\"1\"]"
           }
         ]
       }
