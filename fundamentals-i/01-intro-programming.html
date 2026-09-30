@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../theme.css">
+<title>Module 01 — Introduction to Programming — Python Fundamentals I</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: "Kumbh Sans", sans-serif; background-color:transparent; color:var(--text); }
+a { color: inherit; }
+.top { display:flex; justify-content:space-between; gap:1rem; align-items:flex-end; padding:1.4rem 1.6rem; border-bottom:1px solid var(--header-border); background:var(--header-surface); backdrop-filter:blur(16px); position:sticky; top:0; z-index:5; }
+.top .back { font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; color:#5c6478; }
+.top h1 { font-family:Poppins, sans-serif; font-weight:500; font-size:1.6rem; margin:.2rem 0 0; }
+.progress { min-width:9rem; text-align:right; font-size:.8rem; color:var(--muted); }
+.progress .bar { margin-top:.35rem; height:6px; background:#e8ecf4; border-radius:99px; overflow:hidden; }
+.progress .bar span { display:block; height:100%; width:0; background:var(--accent); }
+.layout { display:grid; grid-template-columns: 240px 1fr; gap:1.5rem; max-width:1180px; margin:0 auto; padding:1.2rem 1.2rem 4rem; }
+.nav { position:sticky; top:5.2rem; align-self:start; max-height:calc(100vh - 6.2rem); overflow:auto; display:flex; flex-direction:column; gap:.15rem; }
+.nav a { text-decoration:none; font-size:.88rem; color:var(--muted); padding:.45rem .6rem; border-radius:6px; }
+.nav a.active, .nav a:hover { background:var(--accent-l); color:var(--text); }
+.intro-banner { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.4rem; color:var(--muted); line-height:1.5; }
+.module { padding:1.2rem 0 2rem; border-top:1px solid var(--line); }
+.label { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 .4rem; }
+h2 { font-family:Poppins, sans-serif; font-weight:500; font-size:2rem; margin:0 0 .4rem; }
+h3 { font-family:Poppins, sans-serif; font-weight:500; font-size:1.25rem; margin:0; }
+.lead { color:var(--muted); max-width:62ch; line-height:1.6; }
+.outcomes { display:grid; gap:.45rem; margin:1rem 0; }
+.outcome { display:flex; gap:.7rem; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:.7rem .8rem; }
+.outcome strong { font-weight:600; }
+.outcome span { color:var(--muted); line-height:1.45; }
+.concept { background:var(--accent-l); border-left:3px solid var(--accent); padding:.9rem 1rem; margin:1rem 0; border-radius:0 8px 8px 0; }
+.concept p, .concept li { color:var(--muted); line-height:1.5; }
+.concept ul { margin:.4rem 0 0; padding-left:1.1rem; }
+article { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem; margin:1rem 0; }
+.exercise { border-color:var(--accent); }
+.block-head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; margin-bottom:.6rem; }
+article p { color:var(--muted); line-height:1.55; }
+.actions { display:flex; gap:.4rem; flex-shrink:0; }
+button { font: inherit; cursor:pointer; border-radius:999px; border:1px solid var(--line); background-color:transparent; padding:.4rem .8rem; }
+button.run, button.copy { background:var(--accent); color:#fcfdff; border-color:var(--accent); }
+button:disabled { opacity:.6; cursor:wait; }
+textarea { width:100%; min-height:9rem; resize:vertical; border:0; border-radius:12px; background:var(--code); color:#0c0e14; font-family:"JetBrains Mono", ui-monospace, monospace; font-size:.86rem; line-height:1.55; padding:.9rem; }
+.out { display:none; margin:.6rem 0 0; white-space:pre-wrap; background:#e8ecf4; border-radius:12px; padding:.7rem .8rem; font-family:"JetBrains Mono", ui-monospace, monospace; font-size:.82rem; }
+.out.visible { display:block; }
+.out.error { background:#ef444422; }
+.note, .terminal-label { font-size:.88rem; }
+.terminal-label { color:var(--accent); }
+.quiz, .recap { margin:1rem 0; }
+.question { margin:.8rem 0 1rem; }
+.choices { display:grid; gap:.4rem; }
+.choice { text-align:left; border-radius:12px; width:100%; }
+.choice.correct { background:#05966922; border-color:#059669; }
+.choice.wrong { background:#ef444422; border-color:#ef4444; }
+.why { display:none; margin:.45rem 0 0; }
+.question.answered .why { display:block; }
+.next-link { display:inline-block; margin-top:.4rem; color:var(--accent); text-decoration:none; letter-spacing:.04em; }
+.footer { text-align:center; color:#5c6478; font-size:.8rem; padding:0 1rem 2rem; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns:1fr; }
+  .nav { position:sticky; top:4.6rem; flex-direction:row; max-height:none; overflow:auto; background:var(--header-surface); backdrop-filter:blur(16px); padding-bottom:.4rem; }
+  .nav a { white-space:nowrap; }
+  .top h1 { font-size:1.25rem; }
+  .block-head { flex-direction:column; }
+}
+
+
+.where { margin:.25rem 0 0; color:var(--muted); font-size:.85rem; }
+.pager { display:flex; justify-content:space-between; gap:.75rem; align-items:center; margin:0 0 1rem; }
+.pager a { color:var(--accent); text-decoration:none; font-size:.92rem; }
+body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:center; }
+</style>
+</head>
+<body class="lesson" data-store="fundamentals-i" data-module="01">
+<header class="top">
+<div>
+<a class="back" href="index.html">&#8592; All modules</a>
+<h1>Python Fundamentals I</h1>
+<p class="where">Module 01 of 12</p>
+</div>
+<div class="progress"><p>0 / 0 complete</p><div class="bar"><span></span></div></div>
+</header>
+<div class="layout">
+<main>
+<nav class="pager"><span></span><a href="index.html">Module list</a><a href="02-variables-data-types.html">Next &#8594;</a></nav>
+<p class="intro-banner">Tick each skill when you can do it, edit an example, and press Run. Finished work shows up on the module list.</p>
+<section class="module" id="module-01">
+<p class="label">Module 01</p>
+<h2>Introduction to Programming</h2>
+<p class="lead">What programming is, how to think through a problem, and how to run your first Python program.</p>
+<div class="outcomes"><label class="outcome"><input type="checkbox" data-key="01-outcome-0"><span><strong>Introduction to Programming</strong> Instructions a computer can follow</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-1"><span><strong>Computational Thinking</strong> Break a problem into steps you can trust</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-2"><span><strong>Installation and Environment</strong> Install Python and choose an editor</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-3"><span><strong>Your First Program</strong> Run a script and read its output</span></label><label class="outcome"><input type="checkbox" data-key="01-outcome-4"><span><strong>Syntax and Comments</strong> How Python expects code to be written</span></label></div>
+<aside class="concept"><h3>Talking to Computers</h3><p>A program is a list of instructions. The computer follows that list exactly, from top to bottom, every time you run it.</p><ul><li>You decide the steps</li><li>Python carries them out</li><li>Clear steps are easier to check</li></ul></aside>
+<article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Computational Thinking</div><h3>Four Problem-Solving Moves</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Name the pieces of the problem before you write code.</p>
+
+<textarea spellcheck="false" data-key="01-code-0"># Goal: a student&#x27;s average score
+# Decompose  — collect the scores, add them, divide by the count
+# Pattern    — the same steps work for any set of scores
+# Abstract   — keep the numbers, set the subject name aside
+# Algorithm  — write the steps in order
+
+scores = [80, 90, 100]
+total = 80 + 90 + 100
+average = total / 3
+print(average)</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Computational thinking is the skill. Python is the tool you use to express it.</p>
+</article><article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Setup</div><h3>Install Python and Write a File</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Confirm the interpreter, then save a program in an editor such as VS Code or IDLE.</p>
+
+<textarea spellcheck="false" data-key="01-code-1"># In a terminal, check that Python is available:
+# python3 --version
+
+# hello.py
+# A comment explains the line. Python ignores it.
+print(&quot;Hello, world!&quot;)</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Run it with python3 hello.py. The editor is where you write. The terminal is where you run.</p>
+</article><article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Syntax</div><h3>Rules Python Always Follows</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Indentation groups lines. Quotes mark text. Comments start with a hash.</p>
+
+<textarea spellcheck="false" data-key="01-code-2"># This line is a comment
+message = &quot;Ready to learn&quot;
+print(message)
+
+if message:
+    print(&quot;Python uses indentation for blocks&quot;)</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Four spaces of indentation show which lines belong together.</p>
+</article><article class="exercise" data-python="true">
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Write a three-line program that prints your name, with one comment above it.</p>
+
+<textarea spellcheck="false" data-key="01-code-3"># Write a three-line program that prints your name, with one comment above it.
+
+def solve():
+    pass
+
+solve()</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Replace pass with your solution, then run the file.</p>
+</article>
+<div class="quiz"><h3>Check yourself</h3><div class="question" data-key="01-quiz-0" data-answer="0">
+<p>A program is best described as</p>
+<div class="choices"><button type="button" class="choice" data-index="0">A list of instructions the computer follows</button><button type="button" class="choice" data-index="1">A file Python skips</button><button type="button" class="choice" data-index="2">Only the comments in a file</button></div>
+<p class="why">Python runs the instructions from top to bottom.</p>
+</div><div class="question" data-key="01-quiz-1" data-answer="0">
+<p>Python shows which lines belong together with</p>
+<div class="choices"><button type="button" class="choice" data-index="0">Indentation</button><button type="button" class="choice" data-index="1">Line numbers</button><button type="button" class="choice" data-index="2">A trailing comma</button></div>
+<p class="why">Four spaces group a block, such as the body of if.</p>
+</div></div>
+<div class="recap"><h3>Takeaways</h3><ul><li><strong>Programs Are Instructions</strong> The computer follows your steps in order.</li><li><strong>Think, Then Code</strong> Decompose the problem before you open the editor.</li><li><strong>Syntax Is the Grammar</strong> Indentation, quotes, and comments are part of every file.</li></ul></div>
+</section>
+<div id="lab"></div>
+<nav class="pager"><span></span><a href="index.html">Module list</a><a href="02-variables-data-types.html">Next &#8594;</a></nav>
+</main>
+</div>
+<footer class="site-footer">
+<p>Python Fundamentals I</p>
+<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
+<p class="partners-label">Created together by</p>
+<div class="partner-row">
+<img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
+<span class="partner-and">and</span>
+<img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
+</div>
+</div>
+</footer>
+<script>
+const storeKey = document.body.dataset.store;
+const state = JSON.parse(localStorage.getItem(storeKey) || '{"checks":{},"quiz":{},"code":{}}');
+window.__courseState = state;
+const originals = new Map();
+const progressText = document.querySelector(".progress p");
+const progressBar = document.querySelector(".progress .bar span");
+
+document.querySelectorAll("textarea[data-key]").forEach((el) => {
+  originals.set(el.dataset.key, el.value);
+  if (state.code[el.dataset.key] != null) el.value = state.code[el.dataset.key];
+  el.addEventListener("input", () => {
+    state.code[el.dataset.key] = el.value;
+    save();
+  });
+});
+
+document.querySelectorAll(".outcome input").forEach((el) => {
+  el.checked = !!state.checks[el.dataset.key];
+  el.addEventListener("change", () => {
+    state.checks[el.dataset.key] = el.checked;
+    save();
+    updateProgress();
+  });
+});
+
+document.querySelectorAll(".question").forEach((question) => {
+  const saved = state.quiz[question.dataset.key];
+  if (saved != null) showAnswer(question, saved);
+  question.querySelectorAll(".choice").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (question.classList.contains("answered")) return;
+      const picked = Number(button.dataset.index);
+      state.quiz[question.dataset.key] = picked;
+      showAnswer(question, picked);
+      save();
+      updateProgress();
+    });
+  });
+});
+
+function showAnswer(question, picked) {
+  question.classList.add("answered");
+  const answer = Number(question.dataset.answer);
+  question.querySelectorAll(".choice").forEach((button) => {
+    const index = Number(button.dataset.index);
+    button.disabled = true;
+    if (index === answer) button.classList.add("correct");
+    else if (index === picked) button.classList.add("wrong");
+  });
+}
+
+function save() {
+  const latest = JSON.parse(localStorage.getItem(storeKey) || "{}");
+  if (latest.labs) state.labs = Object.assign({}, latest.labs, state.labs || {});
+  localStorage.setItem(storeKey, JSON.stringify(state));
+}
+
+function updateProgress() {
+  const checks = document.querySelectorAll(".outcome input");
+  const questions = document.querySelectorAll(".question");
+  let done = 0;
+  checks.forEach((el) => { if (el.checked) done += 1; });
+  questions.forEach((el) => {
+    if (Number(state.quiz[el.dataset.key]) === Number(el.dataset.answer)) done += 1;
+  });
+  const total = checks.length + questions.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  progressText.textContent = done + " / " + total + " complete";
+  progressBar.style.width = pct + "%";
+}
+
+let pyodidePromise = null;
+let pyodide = null;
+
+async function ensurePython() {
+  if (pyodide) return pyodide;
+  if (!pyodidePromise) {
+    pyodidePromise = (async () => {
+      if (!window.loadPyodide) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+          script.onload = resolve;
+          script.onerror = () => reject(new Error("Could not download Python."));
+          document.head.appendChild(script);
+        });
+      }
+      const runtime = await loadPyodide();
+      runtime.setStdout({ batched: (text) => { window.__pyOut.push(text); } });
+      runtime.setStderr({ batched: (text) => { window.__pyOut.push(text); } });
+      runtime.setStdin({
+        stdin: () => {
+          const value = window.prompt("The program is waiting for input");
+          if (value === null) throw new Error("Input cancelled");
+          return value;
+        }
+      });
+      return runtime;
+    })();
+  }
+  pyodide = await pyodidePromise;
+  return pyodide;
+}
+window.__ensurePython = ensurePython;
+
+document.querySelectorAll("article").forEach((article) => {
+  const area = article.querySelector("textarea");
+  const out = article.querySelector(".out");
+  const run = article.querySelector(".run");
+  const reset = article.querySelector(".reset");
+  const copy = article.querySelector(".copy");
+  if (reset) {
+    reset.addEventListener("click", () => {
+      area.value = originals.get(area.dataset.key);
+      state.code[area.dataset.key] = area.value;
+      save();
+    });
+  }
+  if (copy) {
+    copy.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(area.value);
+      copy.textContent = "Copied";
+      setTimeout(() => { copy.textContent = "Copy"; }, 1200);
+    });
+  }
+  if (run) {
+    run.addEventListener("click", async () => {
+      run.disabled = true;
+      const previous = run.textContent;
+      run.textContent = "Starting Python…";
+      out.classList.add("visible");
+      out.classList.remove("error");
+      out.textContent = "Loading Python in the browser…";
+      window.__pyOut = [];
+      try {
+        const runtime = await ensurePython();
+        run.textContent = "Running…";
+        out.textContent = "";
+        await runtime.runPythonAsync(area.value);
+        const printed = window.__pyOut.join("\n").trim();
+        out.textContent = printed || "Finished with no printed output.";
+      } catch (error) {
+        const message = String(error);
+        if (message.includes("SystemExit: 0")) {
+          out.textContent = window.__pyOut.join("\n").trim() || "Finished.";
+        } else {
+          out.classList.add("error");
+          const printed = window.__pyOut.join("\n").trim();
+          out.textContent = printed ? printed + "\n" + message : message;
+        }
+      } finally {
+        run.disabled = false;
+        run.textContent = previous;
+      }
+    });
+  }
+});
+
+const links = [...document.querySelectorAll(".nav a")];
+const sections = [...document.querySelectorAll(".module")];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id));
+  });
+}, { rootMargin: "-20% 0px -70% 0px" });
+sections.forEach((section) => observer.observe(section));
+updateProgress();
+</script>
+<script src="../labs.js"></script>
+<script src="../grader.js"></script>
+</body>
+</html>

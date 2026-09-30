@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../theme.css">
+<title>Module 03 — Advanced Functions — Python Fundamentals II</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: "Kumbh Sans", sans-serif; background-color:transparent; color:var(--text); }
+a { color: inherit; }
+.top { display:flex; justify-content:space-between; gap:1rem; align-items:flex-end; padding:1.4rem 1.6rem; border-bottom:1px solid var(--header-border); background:var(--header-surface); backdrop-filter:blur(16px); position:sticky; top:0; z-index:5; }
+.top .back { font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; color:#5c6478; }
+.top h1 { font-family:Poppins, sans-serif; font-weight:500; font-size:1.6rem; margin:.2rem 0 0; }
+.progress { min-width:9rem; text-align:right; font-size:.8rem; color:var(--muted); }
+.progress .bar { margin-top:.35rem; height:6px; background:#e8ecf4; border-radius:99px; overflow:hidden; }
+.progress .bar span { display:block; height:100%; width:0; background:var(--accent); }
+.layout { display:grid; grid-template-columns: 240px 1fr; gap:1.5rem; max-width:1180px; margin:0 auto; padding:1.2rem 1.2rem 4rem; }
+.nav { position:sticky; top:5.2rem; align-self:start; max-height:calc(100vh - 6.2rem); overflow:auto; display:flex; flex-direction:column; gap:.15rem; }
+.nav a { text-decoration:none; font-size:.88rem; color:var(--muted); padding:.45rem .6rem; border-radius:6px; }
+.nav a.active, .nav a:hover { background:var(--accent-l); color:var(--text); }
+.intro-banner { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.4rem; color:var(--muted); line-height:1.5; }
+.module { padding:1.2rem 0 2rem; border-top:1px solid var(--line); }
+.label { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 .4rem; }
+h2 { font-family:Poppins, sans-serif; font-weight:500; font-size:2rem; margin:0 0 .4rem; }
+h3 { font-family:Poppins, sans-serif; font-weight:500; font-size:1.25rem; margin:0; }
+.lead { color:var(--muted); max-width:62ch; line-height:1.6; }
+.outcomes { display:grid; gap:.45rem; margin:1rem 0; }
+.outcome { display:flex; gap:.7rem; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:.7rem .8rem; }
+.outcome strong { font-weight:600; }
+.outcome span { color:var(--muted); line-height:1.45; }
+.concept { background:var(--accent-l); border-left:3px solid var(--accent); padding:.9rem 1rem; margin:1rem 0; border-radius:0 8px 8px 0; }
+.concept p, .concept li { color:var(--muted); line-height:1.5; }
+.concept ul { margin:.4rem 0 0; padding-left:1.1rem; }
+article { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1rem; margin:1rem 0; }
+.exercise { border-color:var(--accent); }
+.block-head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; margin-bottom:.6rem; }
+article p { color:var(--muted); line-height:1.55; }
+.actions { display:flex; gap:.4rem; flex-shrink:0; }
+button { font: inherit; cursor:pointer; border-radius:999px; border:1px solid var(--line); background-color:transparent; padding:.4rem .8rem; }
+button.run, button.copy { background:var(--accent); color:#fcfdff; border-color:var(--accent); }
+button:disabled { opacity:.6; cursor:wait; }
+textarea { width:100%; min-height:9rem; resize:vertical; border:0; border-radius:12px; background:var(--code); color:#0c0e14; font-family:"JetBrains Mono", ui-monospace, monospace; font-size:.86rem; line-height:1.55; padding:.9rem; }
+.out { display:none; margin:.6rem 0 0; white-space:pre-wrap; background:#e8ecf4; border-radius:12px; padding:.7rem .8rem; font-family:"JetBrains Mono", ui-monospace, monospace; font-size:.82rem; }
+.out.visible { display:block; }
+.out.error { background:#ef444422; }
+.note, .terminal-label { font-size:.88rem; }
+.terminal-label { color:var(--accent); }
+.quiz, .recap { margin:1rem 0; }
+.question { margin:.8rem 0 1rem; }
+.choices { display:grid; gap:.4rem; }
+.choice { text-align:left; border-radius:12px; width:100%; }
+.choice.correct { background:#05966922; border-color:#059669; }
+.choice.wrong { background:#ef444422; border-color:#ef4444; }
+.why { display:none; margin:.45rem 0 0; }
+.question.answered .why { display:block; }
+.next-link { display:inline-block; margin-top:.4rem; color:var(--accent); text-decoration:none; letter-spacing:.04em; }
+.footer { text-align:center; color:#5c6478; font-size:.8rem; padding:0 1rem 2rem; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns:1fr; }
+  .nav { position:sticky; top:4.6rem; flex-direction:row; max-height:none; overflow:auto; background:var(--header-surface); backdrop-filter:blur(16px); padding-bottom:.4rem; }
+  .nav a { white-space:nowrap; }
+  .top h1 { font-size:1.25rem; }
+  .block-head { flex-direction:column; }
+}
+
+
+.where { margin:.25rem 0 0; color:var(--muted); font-size:.85rem; }
+.pager { display:flex; justify-content:space-between; gap:.75rem; align-items:center; margin:0 0 1rem; }
+.pager a { color:var(--accent); text-decoration:none; font-size:.92rem; }
+body.lesson .layout { grid-template-columns:minmax(0,760px); justify-content:center; }
+</style>
+</head>
+<body class="lesson" data-store="fundamentals-ii" data-module="03">
+<header class="top">
+<div>
+<a class="back" href="index.html">&#8592; All modules</a>
+<h1>Python Fundamentals II</h1>
+<p class="where">Module 03 of 11</p>
+</div>
+<div class="progress"><p>0 / 0 complete</p><div class="bar"><span></span></div></div>
+</header>
+<div class="layout">
+<main>
+<nav class="pager"><a href="02-oop.html">&#8592; Previous</a><a href="index.html">Module list</a><a href="04-modules-packages.html">Next &#8594;</a></nav>
+<p class="intro-banner">Tick each skill when you can do it, edit an example, and press Run. Finished work shows up on the module list.</p>
+<section class="module" id="module-03">
+<p class="label">Module 03</p>
+<h2>Advanced Functions</h2>
+<p class="lead">Write small functions with lambda, solve a problem by calling a function from itself, and pass functions to other functions.</p>
+<div class="outcomes"><label class="outcome"><input type="checkbox" data-key="03-outcome-0"><span><strong>Lambda Functions</strong> A one-expression function without a def name</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-1"><span><strong>Recursive Functions</strong> A function that calls itself toward a base case</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-2"><span><strong>Function Annotations</strong> Labels for parameters and the return value</span></label><label class="outcome"><input type="checkbox" data-key="03-outcome-3"><span><strong>Higher-Order Functions</strong> Functions that accept or return other functions</span></label></div>
+
+<article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Lambda</div><h3>A Function Written in One Expression</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>lambda is useful when a short rule is needed in one place.</p>
+
+<textarea spellcheck="false" data-key="03-code-0">scores = [80, 90, 100]
+boosted = list(map(lambda score: score + 5, scores))
+passed = list(filter(lambda score: score &gt;= 75, scores))
+print(boosted)
+print(passed)</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Use def when the function needs a name, several statements, or a docstring.</p>
+</article><article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Recursion</div><h3>A Function That Calls Itself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>The base case returns immediately. Every other call moves closer to that case.</p>
+
+<textarea spellcheck="false" data-key="03-code-1">def factorial(n):
+    if n &lt;= 1:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Always write the base case first. It is what stops the calls.</p>
+</article><article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Annotations</div><h3>Label the Inputs and the Result</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Annotations document the expected types. Python does not enforce them by itself.</p>
+
+<textarea spellcheck="false" data-key="03-code-2">def average(scores: list[float]) -&gt; float:
+    return sum(scores) / len(scores)
+
+print(average([80, 90, 100]))
+print(average.__annotations__)</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Readers and tools can see that scores should be a list of numbers and that the result is a float.</p>
+</article><article class="example" data-python="true">
+<div class="block-head"><div><div class="label">Higher-Order Functions</div><h3>Pass a Function as an Argument</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>apply_rule receives another function and calls it on each score.</p>
+
+<textarea spellcheck="false" data-key="03-code-3">def apply_rule(scores, rule):
+    results = []
+    for score in scores:
+        results.append(rule(score))
+    return results
+
+def add_bonus(score):
+    return score + 5
+
+print(apply_rule([80, 90], add_bonus))</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">map and filter are higher-order functions that come with Python. apply_rule is one you can write yourself.</p>
+</article><article class="exercise" data-python="true">
+<div class="block-head"><div><div class="label">Exercise</div><h3>Try It Yourself</h3></div><div class="actions"><button type="button" class="run">Run</button><button type="button" class="reset">Reset</button></div></div>
+<p>Write a recursive function that sums a list, with an empty list as the base case.</p>
+
+<textarea spellcheck="false" data-key="03-code-4"># Write a recursive function that sums a list, with an empty list as the base case.
+
+def solve():
+    pass
+
+solve()</textarea>
+<pre class="out" aria-live="polite"></pre>
+<p class="note">Replace pass with your solution, then run the file.</p>
+</article>
+<div class="quiz"><h3>Check yourself</h3><div class="question" data-key="03-quiz-0" data-answer="0">
+<p>A recursive function needs</p>
+<div class="choices"><button type="button" class="choice" data-index="0">A base case that stops the calls</button><button type="button" class="choice" data-index="1">A package install</button><button type="button" class="choice" data-index="2">A database connection</button></div>
+<p class="why">Each call should move closer to the case that returns immediately.</p>
+</div><div class="question" data-key="03-quiz-1" data-answer="0">
+<p>A higher-order function</p>
+<div class="choices"><button type="button" class="choice" data-index="0">Accepts or returns another function</button><button type="button" class="choice" data-index="1">Can only add numbers</button><button type="button" class="choice" data-index="2">Cannot call what you pass in</button></div>
+<p class="why">map, filter, and a function like apply_rule all do this.</p>
+</div></div>
+<div class="recap"><h3>Takeaways</h3><ul><li><strong>lambda Is a Short Rule</strong> It fits where a named def would be heavier than the idea.</li><li><strong>Recursion Needs a Base Case</strong> Each call must get closer to the case that returns.</li><li><strong>Functions Can Be Arguments</strong> A higher-order function calls the function you pass in.</li></ul></div>
+</section>
+<div id="lab"></div>
+<nav class="pager"><a href="02-oop.html">&#8592; Previous</a><a href="index.html">Module list</a><a href="04-modules-packages.html">Next &#8594;</a></nav>
+</main>
+</div>
+<footer class="site-footer">
+<p>Python Fundamentals II</p>
+<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
+<p class="partners-label">Created together by</p>
+<div class="partner-row">
+<img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
+<span class="partner-and">and</span>
+<img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
+</div>
+</div>
+</footer>
+<script>
+const storeKey = document.body.dataset.store;
+const state = JSON.parse(localStorage.getItem(storeKey) || '{"checks":{},"quiz":{},"code":{}}');
+window.__courseState = state;
+const originals = new Map();
+const progressText = document.querySelector(".progress p");
+const progressBar = document.querySelector(".progress .bar span");
+
+document.querySelectorAll("textarea[data-key]").forEach((el) => {
+  originals.set(el.dataset.key, el.value);
+  if (state.code[el.dataset.key] != null) el.value = state.code[el.dataset.key];
+  el.addEventListener("input", () => {
+    state.code[el.dataset.key] = el.value;
+    save();
+  });
+});
+
+document.querySelectorAll(".outcome input").forEach((el) => {
+  el.checked = !!state.checks[el.dataset.key];
+  el.addEventListener("change", () => {
+    state.checks[el.dataset.key] = el.checked;
+    save();
+    updateProgress();
+  });
+});
+
+document.querySelectorAll(".question").forEach((question) => {
+  const saved = state.quiz[question.dataset.key];
+  if (saved != null) showAnswer(question, saved);
+  question.querySelectorAll(".choice").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (question.classList.contains("answered")) return;
+      const picked = Number(button.dataset.index);
+      state.quiz[question.dataset.key] = picked;
+      showAnswer(question, picked);
+      save();
+      updateProgress();
+    });
+  });
+});
+
+function showAnswer(question, picked) {
+  question.classList.add("answered");
+  const answer = Number(question.dataset.answer);
+  question.querySelectorAll(".choice").forEach((button) => {
+    const index = Number(button.dataset.index);
+    button.disabled = true;
+    if (index === answer) button.classList.add("correct");
+    else if (index === picked) button.classList.add("wrong");
+  });
+}
+
+function save() {
+  const latest = JSON.parse(localStorage.getItem(storeKey) || "{}");
+  if (latest.labs) state.labs = Object.assign({}, latest.labs, state.labs || {});
+  localStorage.setItem(storeKey, JSON.stringify(state));
+}
+
+function updateProgress() {
+  const checks = document.querySelectorAll(".outcome input");
+  const questions = document.querySelectorAll(".question");
+  let done = 0;
+  checks.forEach((el) => { if (el.checked) done += 1; });
+  questions.forEach((el) => {
+    if (Number(state.quiz[el.dataset.key]) === Number(el.dataset.answer)) done += 1;
+  });
+  const total = checks.length + questions.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  progressText.textContent = done + " / " + total + " complete";
+  progressBar.style.width = pct + "%";
+}
+
+let pyodidePromise = null;
+let pyodide = null;
+
+async function ensurePython() {
+  if (pyodide) return pyodide;
+  if (!pyodidePromise) {
+    pyodidePromise = (async () => {
+      if (!window.loadPyodide) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+          script.onload = resolve;
+          script.onerror = () => reject(new Error("Could not download Python."));
+          document.head.appendChild(script);
+        });
+      }
+      const runtime = await loadPyodide();
+      runtime.setStdout({ batched: (text) => { window.__pyOut.push(text); } });
+      runtime.setStderr({ batched: (text) => { window.__pyOut.push(text); } });
+      runtime.setStdin({
+        stdin: () => {
+          const value = window.prompt("The program is waiting for input");
+          if (value === null) throw new Error("Input cancelled");
+          return value;
+        }
+      });
+      return runtime;
+    })();
+  }
+  pyodide = await pyodidePromise;
+  return pyodide;
+}
+window.__ensurePython = ensurePython;
+
+document.querySelectorAll("article").forEach((article) => {
+  const area = article.querySelector("textarea");
+  const out = article.querySelector(".out");
+  const run = article.querySelector(".run");
+  const reset = article.querySelector(".reset");
+  const copy = article.querySelector(".copy");
+  if (reset) {
+    reset.addEventListener("click", () => {
+      area.value = originals.get(area.dataset.key);
+      state.code[area.dataset.key] = area.value;
+      save();
+    });
+  }
+  if (copy) {
+    copy.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(area.value);
+      copy.textContent = "Copied";
+      setTimeout(() => { copy.textContent = "Copy"; }, 1200);
+    });
+  }
+  if (run) {
+    run.addEventListener("click", async () => {
+      run.disabled = true;
+      const previous = run.textContent;
+      run.textContent = "Starting Python…";
+      out.classList.add("visible");
+      out.classList.remove("error");
+      out.textContent = "Loading Python in the browser…";
+      window.__pyOut = [];
+      try {
+        const runtime = await ensurePython();
+        run.textContent = "Running…";
+        out.textContent = "";
+        await runtime.runPythonAsync(area.value);
+        const printed = window.__pyOut.join("\n").trim();
+        out.textContent = printed || "Finished with no printed output.";
+      } catch (error) {
+        const message = String(error);
+        if (message.includes("SystemExit: 0")) {
+          out.textContent = window.__pyOut.join("\n").trim() || "Finished.";
+        } else {
+          out.classList.add("error");
+          const printed = window.__pyOut.join("\n").trim();
+          out.textContent = printed ? printed + "\n" + message : message;
+        }
+      } finally {
+        run.disabled = false;
+        run.textContent = previous;
+      }
+    });
+  }
+});
+
+const links = [...document.querySelectorAll(".nav a")];
+const sections = [...document.querySelectorAll(".module")];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    links.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id));
+  });
+}, { rootMargin: "-20% 0px -70% 0px" });
+sections.forEach((section) => observer.observe(section));
+updateProgress();
+</script>
+<script src="../labs.js"></script>
+<script src="../grader.js"></script>
+</body>
+</html>

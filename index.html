@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Programming — Trixync</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+    <title>Python Programming — Trixync and Yanks &amp; Brits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: #ede8e0;
-            color: #1a1a1a;
+            font-family: "Kumbh Sans", sans-serif;
+            
+            color: #0c0e14;
             min-height: 100vh;
         }
+        a { color: inherit; }
         .hero {
             text-align: center;
             padding: 10vh 5vw 6vh;
@@ -21,333 +23,120 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: #8a8178;
+            color: #5c6478;
             margin-bottom: 2vh;
         }
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
+            font-family: Poppins, sans-serif;
+            font-weight: 500;
             font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 2vh;
         }
         .subtitle {
             font-size: 1.1rem;
-            color: #5a5a5a;
-            max-width: 50vw;
+            color: #5c6478;
+            max-width: 40rem;
             margin: 0 auto;
             line-height: 1.6;
         }
-        .course-section {
-            max-width: 1400px;
+        .routes {
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 5vw 6vh;
-        }
-        .course-header {
-            display: flex;
-            align-items: baseline;
-            gap: 1.5rem;
-            margin-bottom: 3vh;
-            padding-bottom: 2vh;
-            border-bottom: 1px solid #e8e2d8;
-        }
-        .course-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            font-size: 1.8rem;
-        }
-        .course-header .accent {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .accent-blue { background: #306998; }
-        .accent-green { background: #2d5a27; }
-        .grid {
+            padding: 0 5vw 8vh;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
-        .card {
-            background: #fff;
-            border: 1px solid #e8e2d8;
+        .route {
+            background: #ffffff;
+            border: 1px solid #0c0e1414;
             text-decoration: none;
             color: inherit;
+            padding: 2.2rem 2rem 1.8rem;
+            border-radius: 12px;
             display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem 1.8rem;
-            border-radius: 6px;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 280px;
             transition: all 0.3s ease;
             position: relative;
         }
-        .card:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        .route:hover {
+            box-shadow: 0 8px 32px #2138b81f;
             transform: translateY(-3px);
         }
-        .card .num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            opacity: 0.5;
-            min-width: 2.5rem;
-        }
-        .num-blue { color: #306998; }
-        .num-green { color: #2d5a27; }
-        .card .info h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            font-size: 1.05rem;
-            margin-bottom: 0.3rem;
-        }
-        .card .info p {
-            font-size: 0.8rem;
-            color: #5a5a5a;
-            line-height: 1.5;
-        }
-        .card .arrow {
-            position: absolute;
-            right: 1.5rem;
-            font-size: 1.1rem;
-            color: #b8b0a4;
-            transition: all 0.3s ease;
-        }
-        .card:hover .arrow {
-            transform: translateX(5px);
-        }
-        .arrow-blue:hover { color: #306998; }
-        .arrow-green:hover { color: #2d5a27; }
-        .card .tag {
+        .route .tag {
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 0.2rem;
         }
-        .tag-blue { color: #306998; }
-        .tag-green { color: #2d5a27; }
-        .divider {
-            height: 1px;
-            background: #e8e2d8;
-            margin: 4vh 5vw;
+        .tag-blue { color: #2138b8; }
+        .tag-green { color: #3866f2; }
+        .route h2 {
+            font-family: Poppins, sans-serif;
+            font-weight: 500;
+            font-size: 2rem;
+            line-height: 1.15;
         }
-        .footer {
-            text-align: center;
-            padding: 4vh 5vw 6vh;
-            color: #8a8178;
+        .route p {
+            font-size: 0.95rem;
+            color: #5c6478;
+            line-height: 1.6;
+            max-width: 36ch;
+        }
+        .route .meta {
+            margin-top: auto;
             font-size: 0.8rem;
+            color: #5c6478;
+            letter-spacing: 0.04em;
+        }
+        .route .arrow {
+            position: absolute;
+            right: 1.5rem;
+            bottom: 1.6rem;
+            font-size: 1.2rem;
+            color: #5c6478;
+            transition: transform 0.3s ease;
+        }
+        .route:hover .arrow { transform: translateX(5px); }
+        .hero .partners { margin-bottom: 3.2rem; }
+        @media (max-width: 800px) {
+            .routes { grid-template-columns: 1fr; }
+            .hero { padding-top: 8vh; }
         }
     </style>
 </head>
 <body>
     <div class="hero">
+        <div class="partners" aria-label="Created together by Trixync and Yanks &amp; Brits">
+            <p class="partners-label">Created together by</p>
+            <div class="partner-row">
+                <img class="logo-trixync" src="images/trixync-logo.svg" alt="Trixync">
+                <span class="partner-and">and</span>
+                <img class="logo-ynb" src="images/ynb-logo.svg" alt="Yanks &amp; Brits">
+            </div>
+        </div>
         <div class="label">Course Materials</div>
         <h1>Python Programming</h1>
-        <p class="subtitle">Two courses — from beginner to intermediate. Prepared for students heading abroad.</p>
+        <p class="subtitle">Two progressive subjects for students in Analytics, Engineering, and Information Technology. A shared foundation first, then general software development practice.</p>
     </div>
 
-    <!-- PYTHON I -->
-    <div class="course-section">
-        <div class="course-header">
-            <div class="accent accent-blue"></div>
-            <h2>Python Programming I — Fundamentals</h2>
-        </div>
-        <div class="grid">
-            <a href="slides/01-intro-programming.html" class="card">
-                <div class="num num-blue">01</div>
-                <div class="info">
-                    <div class="tag tag-blue">Foundation</div>
-                    <h3>Introduction to Programming</h3>
-                    <p>What is programming, computational thinking, first program</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/02-variables-data-types.html" class="card">
-                <div class="num num-blue">02</div>
-                <div class="info">
-                    <div class="tag tag-blue">Foundation</div>
-                    <h3>Variables & Data Types</h3>
-                    <p>int, float, str, bool, type conversion, user input</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/03-operators-expressions.html" class="card">
-                <div class="num num-blue">03</div>
-                <div class="info">
-                    <div class="tag tag-blue">Foundation</div>
-                    <h3>Operators & Expressions</h3>
-                    <p>Arithmetic, comparison, logical operators</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/04-decision-making.html" class="card">
-                <div class="num num-blue">04</div>
-                <div class="info">
-                    <div class="tag tag-blue">Control Flow</div>
-                    <h3>Decision Making</h3>
-                    <p>if / elif / else, nested conditions</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/05-loops.html" class="card">
-                <div class="num num-blue">05</div>
-                <div class="info">
-                    <div class="tag tag-blue">Control Flow</div>
-                    <h3>Loops</h3>
-                    <p>for, while, range(), break / continue</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/06-functions.html" class="card">
-                <div class="num num-blue">06</div>
-                <div class="info">
-                    <div class="tag tag-blue">Structure</div>
-                    <h3>Functions</h3>
-                    <p>def, parameters, return, scope, lambda</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/07-lists-tuples.html" class="card">
-                <div class="num num-blue">07</div>
-                <div class="info">
-                    <div class="tag tag-blue">Data Structures</div>
-                    <h3>Lists & Tuples</h3>
-                    <p>Indexing, slicing, methods, comprehension</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/08-dictionaries-sets.html" class="card">
-                <div class="num num-blue">08</div>
-                <div class="info">
-                    <div class="tag tag-blue">Data Structures</div>
-                    <h3>Dictionaries & Sets</h3>
-                    <p>Key-value pairs, methods, set operations</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/09-string-processing.html" class="card">
-                <div class="num num-blue">09</div>
-                <div class="info">
-                    <div class="tag tag-blue">Processing</div>
-                    <h3>String Processing</h3>
-                    <p>Methods, f-strings, slicing, validation</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-            <a href="slides/10-file-handling-project.html" class="card">
-                <div class="num num-blue">10</div>
-                <div class="info">
-                    <div class="tag tag-blue">Applied</div>
-                    <h3>File Handling & Final Project</h3>
-                    <p>Files, CSV, exception handling, capstone</p>
-                </div>
-                <div class="arrow arrow-blue">&#8594;</div>
-            </a>
-        </div>
+    <div class="routes">
+        <a class="route" href="fundamentals-i/index.html">
+            <div class="tag tag-blue">Beginner</div>
+            <h2>Python Fundamentals I</h2>
+            <p>Programming fundamentals, computational thinking, and structured programming for complete beginners.</p>
+            <div class="meta">12 modules</div>
+            <div class="arrow">&#8594;</div>
+        </a>
+        <a class="route" href="fundamentals-ii/index.html">
+            <div class="tag tag-green">Intermediate</div>
+            <h2>Python Fundamentals II</h2>
+            <p>Object-oriented programming, packages, data and databases, web services, testing, and version control.</p>
+            <div class="meta">11 modules</div>
+            <div class="arrow">&#8594;</div>
+        </a>
     </div>
 
-    <div class="divider"></div>
-
-    <!-- PYTHON II -->
-    <div class="course-section">
-        <div class="course-header">
-            <div class="accent accent-green"></div>
-            <h2>Python Programming II — Intermediate</h2>
-        </div>
-        <div class="grid">
-            <a href="slides/11-advanced-functions.html" class="card">
-                <div class="num num-green">11</div>
-                <div class="info">
-                    <div class="tag tag-green">Advanced</div>
-                    <h3>Advanced Functions</h3>
-                    <p>Recursion, closures, decorators, higher-order functions</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/12-oop-basics.html" class="card">
-                <div class="num num-green">12</div>
-                <div class="info">
-                    <div class="tag tag-green">OOP</div>
-                    <h3>Object-Oriented Programming I</h3>
-                    <p>Classes, objects, __init__, methods, self</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/13-oop-advanced.html" class="card">
-                <div class="num num-green">13</div>
-                <div class="info">
-                    <div class="tag tag-green">OOP</div>
-                    <h3>OOP II — Inheritance & Polymorphism</h3>
-                    <p>Inheritance, encapsulation, dunder methods</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/14-modules-packages.html" class="card">
-                <div class="num num-green">14</div>
-                <div class="info">
-                    <div class="tag tag-green">Structure</div>
-                    <h3>Modules & Packages</h3>
-                    <p>import, pip, virtual environments, custom modules</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/15-error-handling.html" class="card">
-                <div class="num num-green">15</div>
-                <div class="info">
-                    <div class="tag tag-green">Robustness</div>
-                    <h3>Error Handling</h3>
-                    <p>try/except, custom exceptions, debugging</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/16-file-io.html" class="card">
-                <div class="num num-green">16</div>
-                <div class="info">
-                    <div class="tag tag-green">Applied</div>
-                    <h3>File I/O & Context Managers</h3>
-                    <p>with statement, CSV, JSON, pathlib</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/17-comprehensions-generators.html" class="card">
-                <div class="num num-green">17</div>
-                <div class="info">
-                    <div class="tag tag-green">Pythonic</div>
-                    <h3>Comprehensions & Generators</h3>
-                    <p>List/dict/set comprehensions, yield, iterators</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/18-regular-expressions.html" class="card">
-                <div class="num num-green">18</div>
-                <div class="info">
-                    <div class="tag tag-green">Processing</div>
-                    <h3>Regular Expressions</h3>
-                    <p>re module, patterns, matching, validation</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/19-working-with-apis.html" class="card">
-                <div class="num num-green">19</div>
-                <div class="info">
-                    <div class="tag tag-green">Applied</div>
-                    <h3>Working with APIs</h3>
-                    <p>requests, REST APIs, JSON, building API clients</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-            <a href="slides/20-final-project.html" class="card">
-                <div class="num num-green">20</div>
-                <div class="info">
-                    <div class="tag tag-green">Capstone</div>
-                    <h3>Final Project</h3>
-                    <p>Build a complete application, code review, presentations</p>
-                </div>
-                <div class="arrow arrow-green">&#8594;</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="footer">
-        Python Programming I & II — Trixync
-    </div>
 </body>
 </html>

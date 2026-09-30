@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../theme.css">
+<title>Python Fundamentals II — Trixync</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Kumbh+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Kumbh Sans", sans-serif;  color:#0c0e14; }
+a { color:inherit; text-decoration:none; }
+.hero { max-width:1100px; margin:0 auto; padding:2.2rem 1.4rem 1rem; }
+.back { font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:#5c6478; }
+.back:hover { color:#2138b8; }
+.label { margin:1rem 0 .4rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:#2138b8; }
+h1 { font-family:Poppins, sans-serif; font-weight:500; font-size:clamp(2rem, 4vw, 3.2rem); margin:0 0 .6rem; }
+.lead { color:#5c6478; max-width:42rem; line-height:1.6; }
+.track { max-width:1100px; margin:0 auto; padding:1rem 1.4rem 0; display:flex; justify-content:space-between; gap:1rem; align-items:center; }
+#summary { margin:0; color:#5c6478; }
+.bar { width:9rem; height:6px; background:#e8ecf4; border-radius:99px; overflow:hidden; }
+.bar span { display:block; height:100%; width:0; background:#2138b8; }
+.grid { max-width:1100px; margin:0 auto; padding:1rem 1.4rem 3rem; display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1rem; }
+.card { display:flex; gap:1rem; align-items:flex-start; background:#ffffff; border:1px solid #0c0e1414; border-radius:12px; padding:1.1rem 1.2rem; position:relative; }
+.card:hover { transform:translateY(-2px); box-shadow:0 8px 32px #2138b81f; }
+.num { font-family:Poppins, sans-serif; font-size:1.8rem; color:#2138b8; opacity:.55; min-width:2.2rem; }
+.card h2 { font-family:Poppins, sans-serif; font-weight:500; font-size:1.15rem; margin:0 0 .35rem; }
+.card p { margin:0; color:#5c6478; font-size:.88rem; line-height:1.45; }
+.status { margin-top:.55rem !important; font-size:.75rem !important; letter-spacing:.08em; text-transform:uppercase; color:#5c6478; }
+.card.started .status { color:#2138b8; }
+.card.complete { border-color:#2138b8; background:#2138b814; }
+.lab-status { margin-top:.3rem !important; font-size:.75rem !important; letter-spacing:.04em; text-transform:uppercase; color:#5c6478; }
+.card.labs-done .lab-status { color:#059669; }
+.card.complete .status { color:#2138b8; }
+.arrow { margin-left:auto; color:#5c6478; align-self:center; }
+.footer { text-align:center; color:#5c6478; font-size:.8rem; padding:0 1rem 2rem; }
+</style>
+</head>
+<body data-store="fundamentals-ii">
+<div class="hero">
+<a class="back" href="../index.html">&#8592; All courses</a>
+<div class="label">Python Fundamentals II</div>
+<h1>Module list</h1>
+<p class="lead">Each module is its own page. Upload a Python file on the exercise section to see your score. Skills, quizzes, and exercise scores stay in this browser.</p>
+<div class="partners partners-compact partners-start" aria-label="Created together by Trixync and Yanks &amp; Brits">
+<p class="partners-label">Created together by</p>
+<div class="partner-row">
+<img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
+<span class="partner-and">and</span>
+<img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
+</div>
+</div>
+</div>
+<div class="track"><p id="summary">0 of 11 modules complete</p><div class="bar"><span></span></div></div>
+<div class="grid">
+<a class="card" href="01-review.html" data-module="01" data-lab-count="4" data-lab-tests="7" data-outcomes="3" data-answers="0,0">
+<div class="num">01</div>
+<div class="info">
+<h2>Review of Python Fundamentals</h2>
+<p>Reconnect variables, functions, collections, files, and exceptions, then organize the code you already know how to write.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="02-oop.html" data-module="02" data-lab-count="4" data-lab-tests="8" data-outcomes="6" data-answers="0,0">
+<div class="num">02</div>
+<div class="info">
+<h2>Object-Oriented Programming</h2>
+<p>Model a student as an object with data and behavior, then extend that model with inheritance and polymorphism.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="03-advanced-functions.html" data-module="03" data-lab-count="4" data-lab-tests="10" data-outcomes="4" data-answers="0,0">
+<div class="num">03</div>
+<div class="info">
+<h2>Advanced Functions</h2>
+<p>Write small functions with lambda, solve a problem by calling a function from itself, and pass functions to other functions.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="04-modules-packages.html" data-module="04" data-lab-count="4" data-lab-tests="9" data-outcomes="5" data-answers="0,0">
+<div class="num">04</div>
+<div class="info">
+<h2>Modules and Packages</h2>
+<p>Group modules into a package, import from that package, and install tools into a virtual environment with pip.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="05-standard-library.html" data-module="05" data-lab-count="4" data-lab-tests="5" data-outcomes="6" data-answers="0,0">
+<div class="num">05</div>
+<div class="info">
+<h2>The Standard Library</h2>
+<p>Use pathlib, datetime, math, random, os, and shutil for paths, dates, numbers, and files.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="06-file-data-processing.html" data-module="06" data-lab-count="4" data-lab-tests="6" data-outcomes="4" data-answers="0,0">
+<div class="num">06</div>
+<div class="info">
+<h2>File and Data Processing</h2>
+<p>Store records as JSON, read XML, process CSV rows, and work with the file system around them.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="07-database-programming.html" data-module="07" data-lab-count="4" data-lab-tests="5" data-outcomes="5" data-answers="0,0">
+<div class="num">07</div>
+<div class="info">
+<h2>Database Programming</h2>
+<p>Store rows in SQLite, write SQL for create, read, update, and delete, and connect to the database from Python.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="08-web-services-apis.html" data-module="08" data-lab-count="4" data-lab-tests="9" data-outcomes="4" data-answers="0,0">
+<div class="num">08</div>
+<div class="info">
+<h2>Web Services and APIs</h2>
+<p>Call a REST API over HTTP, send a request, and read the JSON body that comes back.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="09-debugging-testing.html" data-module="09" data-lab-count="4" data-lab-tests="9" data-outcomes="5" data-answers="0,0">
+<div class="num">09</div>
+<div class="info">
+<h2>Debugging and Testing</h2>
+<p>Find a failing assumption, record what the program is doing, and lock the result in with assertions and unit tests.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="10-version-control.html" data-module="10" data-lab-count="4" data-lab-tests="7" data-outcomes="6" data-answers="0,0">
+<div class="num">10</div>
+<div class="info">
+<h2>Version Control</h2>
+<p>Track a project with Git: a local repository, commits, branches, merges, and a shared copy on GitHub.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a><a class="card" href="11-capstone-project.html" data-module="11" data-lab-count="5" data-lab-tests="6" data-outcomes="6" data-answers="0,0">
+<div class="num">11</div>
+<div class="info">
+<h2>Capstone Project</h2>
+<p>Plan a complete application, build it, test it, document it, and present the result.</p>
+<p class="status">Not started</p>
+<p class="lab-status">Exercises 0/0</p>
+</div>
+<div class="arrow">&#8594;</div>
+</a>
+</div>
+<footer class="site-footer">
+<p>Python Fundamentals II</p>
+<div class="partners partners-compact" aria-label="Created together by Trixync and Yanks &amp; Brits">
+<p class="partners-label">Created together by</p>
+<div class="partner-row">
+<img class="logo-trixync" src="../images/trixync-logo.svg" alt="Trixync">
+<span class="partner-and">and</span>
+<img class="logo-ynb" src="../images/ynb-logo.svg" alt="Yanks &amp; Brits">
+</div>
+</div>
+</footer>
+<script>
+const state = JSON.parse(localStorage.getItem(document.body.dataset.store) || '{"checks":{},"quiz":{},"code":{}}');
+const cards = [...document.querySelectorAll("[data-module]")];
+let finished = 0;
+let testsPassed = 0;
+let testsAll = 0;
+cards.forEach((card) => {
+  const num = card.dataset.module;
+  const outcomes = Number(card.dataset.outcomes);
+  const answers = card.dataset.answers ? card.dataset.answers.split(",").map(Number) : [];
+  let score = 0;
+  let touched = false;
+  for (let i = 0; i < outcomes; i += 1) {
+    if (state.checks[num + "-outcome-" + i]) {
+      score += 1;
+      touched = true;
+    }
+  }
+  answers.forEach((answer, i) => {
+    const picked = state.quiz[num + "-quiz-" + i];
+    if (picked != null) touched = true;
+    if (Number(picked) === answer) score += 1;
+  });
+  Object.keys(state.code || {}).forEach((key) => {
+    if (key.indexOf(num + "-code-") === 0) touched = true;
+  });
+  const total = outcomes + answers.length;
+  const labCount = Number(card.dataset.labCount || 0);
+  const labTests = Number(card.dataset.labTests || 0);
+  const labs = state.labs || {};
+  let labPassed = 0;
+  let labSolved = 0;
+  for (let i = 1; i <= labCount; i += 1) {
+    const result = labs[num + "-" + i];
+    if (!result) continue;
+    touched = true;
+    labPassed += Number(result.passed) || 0;
+    if (Number(result.passed) === Number(result.total) && Number(result.total) > 0) labSolved += 1;
+  }
+  const labLine = card.querySelector(".lab-status");
+  if (labLine) {
+    const labPercent = labTests ? Math.round((labPassed / labTests) * 100) : 0;
+    labLine.textContent = "Exercises " + labSolved + "/" + labCount + " · " + labPercent + "%";
+    if (labSolved === labCount && labCount > 0) card.classList.add("labs-done");
+  }
+  testsPassed += labPassed;
+  testsAll += labTests;
+  const status = card.querySelector(".status");
+  if (score === total && total > 0) {
+    finished += 1;
+    card.classList.add("complete");
+    status.textContent = "Complete";
+  } else if (touched || score > 0) {
+    card.classList.add("started");
+    status.textContent = "In progress · " + score + " / " + total;
+  } else {
+    status.textContent = "Not started";
+  }
+});
+const exercisePercent = testsAll ? Math.round((testsPassed / testsAll) * 100) : 0;
+document.getElementById("summary").textContent = finished + " of " + cards.length + " modules complete · exercise score " + exercisePercent + "%";
+document.querySelector(".bar span").style.width = (cards.length ? Math.round((finished / cards.length) * 100) : 0) + "%";
+</script>
+</body>
+</html>

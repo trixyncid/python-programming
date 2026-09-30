@@ -1,0 +1,92 @@
+/* Trixync light mode — colors and type from trixync.id */
+:root {
+  --background: #f8f9fc;
+  --foreground: #0c0e14;
+  --card: #ffffff;
+  --card-foreground: #0c0e14;
+  --popover: #ffffff;
+  --primary: #2138b8;
+  --primary-foreground: #fcfdff;
+  --secondary: #ffffff99;
+  --muted-foreground: #5c6478;
+  --muted: var(--muted-foreground);
+  --accent: #2138b8;
+  --accent-foreground: #fcfdff;
+  --destructive: #ef4444;
+  --success: #059669;
+  --border: #0c0e1414;
+  --input: #0c0e140f;
+  --ring: #3866f2;
+  --header-surface: #f6f8fc8c;
+  --header-border: #0c0e140a;
+  --header-tint: #3866f20a;
+  --radius: 0.75rem;
+  --bg: var(--background);
+  --text: var(--foreground);
+  --line: var(--border);
+  --accent-l: #2138b814;
+  --code: #e8ecf4;
+  --ambient:
+    radial-gradient(ellipse 100% 70% at 50% -20%, #2138b814, transparent 62%),
+    radial-gradient(ellipse 55% 45% at 92% 22%, #3866f20d, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 8% 55%, #2138b809, transparent 52%),
+    radial-gradient(ellipse 70% 50% at 50% 105%, #3866f20a, transparent 58%);
+}
+
+html { color-scheme: light; background: var(--background); }
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  background-color: var(--background);
+  background-image: var(--ambient);
+  background-attachment: fixed;
+  color: var(--foreground);
+}
+::selection { background: #2138b833; color: var(--foreground); }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+.partners {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+.partners-label {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.partner-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem 1.4rem;
+  flex-wrap: wrap;
+}
+.partner-row img { display: block; width: auto; }
+.logo-trixync { height: 22px; }
+.logo-ynb { height: 72px; }
+.partner-and {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.partners-compact { gap: 0.55rem; margin-top: 0.85rem; }
+.partners-start { align-items: flex-start; }
+.partners-start .partner-row { justify-content: flex-start; }
+@media (max-width: 700px) {
+  .logo-trixync { height: 16px; }
+  .logo-ynb { height: 48px; }
+  .partners-compact .logo-trixync { height: 14px; }
+  .partners-compact .logo-ynb { height: 40px; }
+  .partner-row { gap: 0.55rem 0.75rem; }
+}
+.partners-compact .logo-trixync { height: 16px; }
+.partners-compact .logo-ynb { height: 52px; }
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem 2.4rem;
+}
